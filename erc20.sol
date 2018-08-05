@@ -1,4 +1,4 @@
-pragma solidity ^0.4.16;
+pragma solidity ^0.4.22;
 
 interface tokenRecipient { function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) external; }
 
@@ -45,7 +45,7 @@ contract TokenERC20 {
     }
 
 
-    function _transfer(address _from, address _to, uint _value) internal {
+    function _transfer(address _from, address _to, uint _value) internal  {
         // 目的地不为0
         require(_to != 0x0);
         
@@ -74,7 +74,7 @@ contract TokenERC20 {
 
     
     // 包装了一下, 因为发送者不一定绝对是msg.sender
-    function transfer(address _to, uint256 _value) public returns (bool success) {
+    function transfer(address _to, uint256 _value) public  returns (bool success) {
         _transfer(msg.sender, _to, _value);
         return true;
     }

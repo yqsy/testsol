@@ -77,7 +77,7 @@ contract AccessControl
     }
     
     // 添加管理员,只有管理员可以操作
-        function addAdmin(address a) onlyAdmins public {
+    function addAdmin(address a) onlyAdmins public {
         admins.push(a);    
     }
 }

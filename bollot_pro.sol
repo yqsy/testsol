@@ -1,6 +1,6 @@
 pragma solidity ^0.4.0;
 
-contract Ballot {
+contract BallotPro {
     
     // 投票者
     struct Voter {
@@ -24,6 +24,7 @@ contract Ballot {
     
     // 提案的列表
     Proposal[] public proposals;
+    
     
     // 初始化合约,给定提案的列表
     constructor(bytes32[] proposalNames) public {
@@ -50,13 +51,12 @@ contract Ballot {
         voters[voterAddr].weight = 1;
     }
     
-    
     function delegate(address to) public {
         // 投票者数据结构
         Voter storage sender = voters[msg.sender];
         
-        // 没有投票过
-        require(!sender.voted);
+        // 没有投票过 && 有权利
+        require(!sender.voted && (sender.weight != 0));
         
         
         // 不能把授权给自己
@@ -84,13 +84,16 @@ contract Ballot {
         }
     }
     
-    
+
     // 根据提案列表编号进行投票
     function vote(uint proposalIdx) public {
+        require(proposalIdx < proposals.length);
+        
         // 投票者数据结构
         Voter storage sender = voters[msg.sender];
         
-        require(!sender.voted);
+        // 没有投票过 && 有权利
+        require(!sender.voted && (sender.weight != 0));
         
         sender.voted = true;
         

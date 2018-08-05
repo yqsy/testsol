@@ -3,6 +3,7 @@
 - [1. bollot_navie的缺点](#1-bollot_navie的缺点)
 - [2. BlindAuction流程](#2-blindauction流程)
 - [3. 权限控制](#3-权限控制)
+- [4. erc20](#4-erc20)
 
 <!-- /TOC -->
 
@@ -78,3 +79,24 @@ if 预出价 与 实际出价 hash对上 {
 岂不是?
 
 再回到https的协议, 证书公开,证书签名公开,岂不是可以使得中间人可以复用啦? 怎么思考这个问题?
+
+# 4. erc20
+
+
+* 转账:  需要消耗点燃料费
+* 空投: 实现balanceof函数,空投变量
+
+```
+uint totalSupply = 100000000 ether; // 总发行量
+uint currentTotalSupply = 0;    // 已经空投数量
+uint airdropNum = 1 ether;      // 单个账户空投数量
+
+function balanceOf(address _owner) public view returns (uint256 balance) {
+    // 添加这个方法，当余额为0的时候直接空投
+    if (balances[_owner] == 0 && currentTotalSupply < totalSupply) {
+        currentTotalSupply += airdropNum;
+        balances[_owner] += airdropNum;
+    }
+    return balances[_owner];
+}
+```

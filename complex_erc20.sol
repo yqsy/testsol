@@ -52,8 +52,40 @@ contract ERC20_B is StandardToken {
     function changeAdmin(address _newAdmin) public returns (bool) {
         require(msg.sender == admin);
         require(_newAdmin != address(0));
-        balances[_newAdmin] = balances[_newAdmin].add(balances[admin]); // 
-        
+        balances[_newAdmin] = balances[_newAdmin].add(balances[admin]); // 将admin账户的代币转给新的admin
+        balances[admin] = 0;
+        admin = _newAdmin;
+        return true;
     }
     
+    // 给指定账户增加代币,并做总量增发
+    function generateToken(address _target, uint256 _amount) public returns (bool) {
+        require(msg.sender == admin);
+        require(_target != address(0));
+        balances[_target] = balances[_target].add(_amount); // 发代币
+        totalSupply_ = totalSupply_.add(_amount);           // 增发
+        INITIAL_SUPPLY = totalSupply_;
+        return true;
+    }
+    
+    // 从合约提现
+    // 只能提给管理员
+    function withdraw (uint256 _amount) public returns (bool) {
+        require(msg.sender == admin);
+        msg.sender.transfer(_amount);
+        return true;
+    }
+    
+    // 锁定账户
+    function freeze(address _target, bool _freeze) public returns(bool) {
+        require(msg.sender == admin);
+        require(_target != address(0));
+        
+        frozenAccount[_target] = _freeze;
+        return true;
+    }
+    
+    // 通过时间戳锁定账户
+    
+    /// ...
 }

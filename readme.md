@@ -4,16 +4,19 @@
 - [2. BlindAuction流程](#2-blindauction流程)
 - [3. 权限控制](#3-权限控制)
 - [4. erc20](#4-erc20)
+- [5. 复杂erc20](#5-复杂erc20)
 
 <!-- /TOC -->
 
 
+<a id="markdown-1-bollot_navie的缺点" name="1-bollot_navie的缺点"></a>
 # 1. bollot_navie的缺点
 
 * 如果没有投票权的地址调用了vote函数,那么这样的调用也能正常运行
 * 投票下标可能会造成数组越界
 
 
+<a id="markdown-2-blindauction流程" name="2-blindauction流程"></a>
 # 2. BlindAuction流程
 
 bid时需要指定一个bytes32类型的参数blindedBid,并支付一定数目的`以太币`,被记为`deposit`:
@@ -58,6 +61,7 @@ if 预出价 与 实际出价 hash对上 {
 ```
 
 
+<a id="markdown-3-权限控制" name="3-权限控制"></a>
 # 3. 权限控制
 
 为什么`读`和`写`权限管理不相同呢?
@@ -80,9 +84,12 @@ if 预出价 与 实际出价 hash对上 {
 
 再回到https的协议, 证书公开,证书签名公开,岂不是可以使得中间人可以复用啦? 怎么思考这个问题?
 
+<a id="markdown-4-erc20" name="4-erc20"></a>
 # 4. erc20
 
+* https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/token/ERC20/StandardToken.sol
 
+---
 * 转账:  需要消耗点燃料费
 * 空投: 实现balanceof函数,空投变量
 
@@ -100,3 +107,12 @@ function balanceOf(address _owner) public view returns (uint256 balance) {
     return balances[_owner];
 }
 ```
+
+
+<a id="markdown-5-复杂erc20" name="5-复杂erc20"></a>
+# 5. 复杂erc20
+
+
+* https://github.com/eoshackathon/ipfs_development_tutorial/blob/master/doc/complex_erc20.md
+* https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/token/ERC20/StandardToken.sol
+

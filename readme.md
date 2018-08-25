@@ -5,6 +5,7 @@
 - [3. 权限控制](#3-权限控制)
 - [4. erc20](#4-erc20)
 - [5. 复杂erc20](#5-复杂erc20)
+- [6. 猜数字](#6-猜数字)
 
 <!-- /TOC -->
 
@@ -115,4 +116,9 @@ function balanceOf(address _owner) public view returns (uint256 balance) {
 
 * https://github.com/eoshackathon/ipfs_development_tutorial/blob/master/doc/complex_erc20.md
 * https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/token/ERC20/StandardToken.sol
+
+<a id="markdown-6-猜数字" name="6-猜数字"></a>
+# 6. 猜数字
+
+* https://github.com/merlox/casino-ethereum/blob/master/contracts/Casino.sol
 

@@ -6,6 +6,7 @@
 - [4. erc20](#4-erc20)
 - [5. 复杂erc20](#5-复杂erc20)
 - [6. 猜数字](#6-猜数字)
+- [7. 更复杂erc20](#7-更复杂erc20)
 
 <!-- /TOC -->
 
@@ -121,4 +122,15 @@ function balanceOf(address _owner) public view returns (uint256 balance) {
 # 6. 猜数字
 
 * https://github.com/merlox/casino-ethereum/blob/master/contracts/Casino.sol
+
+<a id="markdown-7-更复杂erc20" name="7-更复杂erc20"></a>
+# 7. 更复杂erc20
+
+
+* https://github.com/eoshackathon/multi-stage-ico
+
+```bash
+cd /mnt/disk1/linux/reference/refer
+git clone https://github.com/eoshackathon/multi-stage-ico
+```
 

@@ -7,6 +7,7 @@
 - [5. 复杂erc20](#5-复杂erc20)
 - [6. 猜数字](#6-猜数字)
 - [7. 更复杂erc20](#7-更复杂erc20)
+- [8. stages](#8-stages)
 
 <!-- /TOC -->
 
@@ -134,3 +135,8 @@ cd /mnt/disk1/linux/reference/refer
 git clone https://github.com/eoshackathon/multi-stage-ico
 ```
 
+<a id="markdown-8-stages" name="8-stages"></a>
+# 8. stages
+
+* 修改_totalSupply为internal
+* 修改_balances为internal

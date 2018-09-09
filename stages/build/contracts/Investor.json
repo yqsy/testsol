@@ -1,20 +1,20 @@
 {
   "contractName": "Investor",
   "abi": [],
-  "bytecode": "0x604c602c600b82828239805160001a60731460008114601c57601e565bfe5b5030600052607381538281f30073000000000000000000000000000000000000000030146080604052600080fd00a165627a7a72305820e95d8dfdb56c6a63ebbd2aef7dcd9a80119cefd772d09737bdb69dd2221c061f0029",
-  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fd00a165627a7a72305820e95d8dfdb56c6a63ebbd2aef7dcd9a80119cefd772d09737bdb69dd2221c061f0029",
-  "sourceMap": "26:821:0:-;;132:2:-1;166:7;155:9;146:7;137:37;252:7;246:14;243:1;238:23;232:4;229:33;270:1;265:20;;;;222:63;;265:20;274:9;222:63;;298:9;295:1;288:20;328:4;319:7;311:22;352:7;343;336:24",
-  "deployedSourceMap": "26:821:0:-;;;;;;;;",
-  "source": "pragma solidity ^0.4.24;\n\nlibrary Investor {\n\n    enum State {UnVoted, Agree, Oppose}\n\n    struct Investor_ {\n        address id;             // 投资者地址\n        uint256 investABSNum;   // 投资者投资的ABS数量\n        uint256 ownerTokenNum;  // 项目方Token数量\n        State state;            // 状态\n        bool voted;             // 是否投过票\n    }\n\n    // 寻找投资者是否存在\n    function findInIdx(Investor_[] storage investors, address id) internal view\n    returns (bool, uint256){\n        for (uint256 i = 0; i < investors.length; i++) {\n            if (investors[i].id == id) {\n                return (true, i);\n            }\n        }\n        return (false, 0);\n    }\n\n    function newInvestor() internal returns (Investor_){\n        Investor.Investor_ memory investor;\n        return investor;\n    }\n}\n",
+  "bytecode": "0x604c602c600b82828239805160001a60731460008114601c57601e565bfe5b5030600052607381538281f30073000000000000000000000000000000000000000030146080604052600080fd00a165627a7a723058203e3fd93a06c1e500da9cfcb9bd0b50ae5fe0472d3ade52624a6890d737fe4f0f0029",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fd00a165627a7a723058203e3fd93a06c1e500da9cfcb9bd0b50ae5fe0472d3ade52624a6890d737fe4f0f0029",
+  "sourceMap": "26:1660:0:-;;132:2:-1;166:7;155:9;146:7;137:37;252:7;246:14;243:1;238:23;232:4;229:33;270:1;265:20;;;;222:63;;265:20;274:9;222:63;;298:9;295:1;288:20;328:4;319:7;311:22;352:7;343;336:24",
+  "deployedSourceMap": "26:1660:0:-;;;;;;;;",
+  "source": "pragma solidity ^0.4.24;\n\nlibrary Investor {\n\n    enum State {UnVoted, Agree, Oppose}\n\n    struct Investor_ {\n        address id;             // 投资者地址\n        uint256 investABSNum;   // 投资者投资ABS数量\n        uint256 ownerTokenNum;  // 项目方释放Token数量\n        State state;            // 状态\n    }\n\n    // 寻找投资者是否存在\n    function findInIdx(Investor_[] storage investors, address id) internal view\n    returns (bool, uint256) {\n        for (uint256 i = 0; i < investors.length; i++) {\n            if (investors[i].id == id) {\n                return (true, i);\n            }\n        }\n        return (false, 0);\n    }\n\n    // 创建新的投资者\n    function newInvestor(address _id, uint256 _investABSNum, uint256 _ownerTokenNum) internal pure\n    returns (Investor_) {\n        Investor.Investor_ memory investor;\n        investor.id = _id;\n        investor.investABSNum = _investABSNum;\n        investor.ownerTokenNum = _ownerTokenNum;\n\n        investor.state = State.UnVoted;\n        return investor;\n    }\n\n    function isVoted(Investor_ storage investor) internal view\n    returns (bool) {\n        return investor.state != State.UnVoted;\n    }\n\n    function isAgreed(Investor_ storage investor) internal view\n    returns (bool) {\n        return investor.state == State.Agree;\n    }\n\n    function isOppose(Investor_ storage investor) internal view\n    returns (bool) {\n        return investor.state == State.Oppose;\n    }\n\n    function vote(Investor_ storage investor, bool agree) internal {\n        if (agree) {\n            investor.state = State.Agree;\n        } else {\n            investor.state = State.Oppose;\n        }\n    }\n}\n",
   "sourcePath": "/mnt/disk1/linux/reference/project/testsol/stages/contracts/Investor.sol",
   "ast": {
     "absolutePath": "/mnt/disk1/linux/reference/project/testsol/stages/contracts/Investor.sol",
     "exportedSymbols": {
       "Investor": [
-        72
+        169
       ]
     },
-    "id": 73,
+    "id": 170,
     "nodeType": "SourceUnit",
     "nodes": [
       {
@@ -34,9 +34,9 @@
         "contractKind": "library",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 72,
+        "id": 169,
         "linearizedBaseContracts": [
-          72
+          169
         ],
         "name": "Investor",
         "nodeType": "ContractDefinition",
@@ -70,14 +70,14 @@
           },
           {
             "canonicalName": "Investor.Investor_",
-            "id": 16,
+            "id": 14,
             "members": [
               {
                 "constant": false,
                 "id": 7,
                 "name": "id",
                 "nodeType": "VariableDeclaration",
-                "scope": 16,
+                "scope": 14,
                 "src": "118:10:0",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -103,7 +103,7 @@
                 "id": 9,
                 "name": "investABSNum",
                 "nodeType": "VariableDeclaration",
-                "scope": 16,
+                "scope": 14,
                 "src": "169:20:0",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -129,8 +129,8 @@
                 "id": 11,
                 "name": "ownerTokenNum",
                 "nodeType": "VariableDeclaration",
-                "scope": 16,
-                "src": "232:21:0",
+                "scope": 14,
+                "src": "229:21:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -141,7 +141,7 @@
                   "id": 10,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "232:7:0",
+                  "src": "229:7:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -155,8 +155,8 @@
                 "id": 13,
                 "name": "state",
                 "nodeType": "VariableDeclaration",
-                "scope": 16,
-                "src": "288:11:0",
+                "scope": 14,
+                "src": "291:11:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -169,36 +169,10 @@
                   "name": "State",
                   "nodeType": "UserDefinedTypeName",
                   "referencedDeclaration": 5,
-                  "src": "288:5:0",
+                  "src": "291:5:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_enum$_State_$5",
                     "typeString": "enum Investor.State"
-                  }
-                },
-                "value": null,
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 15,
-                "name": "voted",
-                "nodeType": "VariableDeclaration",
-                "scope": 16,
-                "src": "330:10:0",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_bool",
-                  "typeString": "bool"
-                },
-                "typeName": {
-                  "id": 14,
-                  "name": "bool",
-                  "nodeType": "ElementaryTypeName",
-                  "src": "330:4:0",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_bool",
-                    "typeString": "bool"
                   }
                 },
                 "value": null,
@@ -207,21 +181,21 @@
             ],
             "name": "Investor_",
             "nodeType": "StructDefinition",
-            "scope": 72,
-            "src": "91:287:0",
+            "scope": 169,
+            "src": "91:239:0",
             "visibility": "public"
           },
           {
             "body": {
-              "id": 57,
+              "id": 55,
               "nodeType": "Block",
-              "src": "522:190:0",
+              "src": "475:190:0",
               "statements": [
                 {
                   "body": {
-                    "id": 51,
+                    "id": 49,
                     "nodeType": "Block",
-                    "src": "579:100:0",
+                    "src": "532:100:0",
                     "statements": [
                       {
                         "condition": {
@@ -230,7 +204,7 @@
                             "typeIdentifier": "t_address",
                             "typeString": "address"
                           },
-                          "id": 44,
+                          "id": 42,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -241,26 +215,26 @@
                               "argumentTypes": null,
                               "baseExpression": {
                                 "argumentTypes": null,
-                                "id": 39,
+                                "id": 37,
                                 "name": "investors",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 19,
-                                "src": "597:9:0",
+                                "referencedDeclaration": 17,
+                                "src": "550:9:0",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_array$_t_struct$_Investor__$16_storage_$dyn_storage_ptr",
+                                  "typeIdentifier": "t_array$_t_struct$_Investor__$14_storage_$dyn_storage_ptr",
                                   "typeString": "struct Investor.Investor_ storage ref[] storage pointer"
                                 }
                               },
-                              "id": 41,
+                              "id": 39,
                               "indexExpression": {
                                 "argumentTypes": null,
-                                "id": 40,
+                                "id": 38,
                                 "name": "i",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 29,
-                                "src": "607:1:0",
+                                "referencedDeclaration": 27,
+                                "src": "560:1:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_uint256",
                                   "typeString": "uint256"
@@ -271,13 +245,13 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "nodeType": "IndexAccess",
-                              "src": "597:12:0",
+                              "src": "550:12:0",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_Investor__$16_storage",
+                                "typeIdentifier": "t_struct$_Investor__$14_storage",
                                 "typeString": "struct Investor.Investor_ storage ref"
                               }
                             },
-                            "id": 42,
+                            "id": 40,
                             "isConstant": false,
                             "isLValue": true,
                             "isPure": false,
@@ -285,7 +259,7 @@
                             "memberName": "id",
                             "nodeType": "MemberAccess",
                             "referencedDeclaration": 7,
-                            "src": "597:15:0",
+                            "src": "550:15:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
                               "typeString": "address"
@@ -295,31 +269,31 @@
                           "operator": "==",
                           "rightExpression": {
                             "argumentTypes": null,
-                            "id": 43,
+                            "id": 41,
                             "name": "id",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 21,
-                            "src": "616:2:0",
+                            "referencedDeclaration": 19,
+                            "src": "569:2:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
                               "typeString": "address"
                             }
                           },
-                          "src": "597:21:0",
+                          "src": "550:21:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bool",
                             "typeString": "bool"
                           }
                         },
                         "falseBody": null,
-                        "id": 50,
+                        "id": 48,
                         "nodeType": "IfStatement",
-                        "src": "593:76:0",
+                        "src": "546:76:0",
                         "trueBody": {
-                          "id": 49,
+                          "id": 47,
                           "nodeType": "Block",
-                          "src": "620:49:0",
+                          "src": "573:49:0",
                           "statements": [
                             {
                               "expression": {
@@ -328,14 +302,14 @@
                                   {
                                     "argumentTypes": null,
                                     "hexValue": "74727565",
-                                    "id": 45,
+                                    "id": 43,
                                     "isConstant": false,
                                     "isLValue": false,
                                     "isPure": true,
                                     "kind": "bool",
                                     "lValueRequested": false,
                                     "nodeType": "Literal",
-                                    "src": "646:4:0",
+                                    "src": "599:4:0",
                                     "subdenomination": null,
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_bool",
@@ -345,35 +319,35 @@
                                   },
                                   {
                                     "argumentTypes": null,
-                                    "id": 46,
+                                    "id": 44,
                                     "name": "i",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
-                                    "referencedDeclaration": 29,
-                                    "src": "652:1:0",
+                                    "referencedDeclaration": 27,
+                                    "src": "605:1:0",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_uint256",
                                       "typeString": "uint256"
                                     }
                                   }
                                 ],
-                                "id": 47,
+                                "id": 45,
                                 "isConstant": false,
                                 "isInlineArray": false,
                                 "isLValue": false,
                                 "isPure": false,
                                 "lValueRequested": false,
                                 "nodeType": "TupleExpression",
-                                "src": "645:9:0",
+                                "src": "598:9:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_tuple$_t_bool_$_t_uint256_$",
                                   "typeString": "tuple(bool,uint256)"
                                 }
                               },
-                              "functionReturnParameters": 27,
-                              "id": 48,
+                              "functionReturnParameters": 25,
+                              "id": 46,
                               "nodeType": "Return",
-                              "src": "638:16:0"
+                              "src": "591:16:0"
                             }
                           ]
                         }
@@ -386,19 +360,19 @@
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     },
-                    "id": 35,
+                    "id": 33,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftExpression": {
                       "argumentTypes": null,
-                      "id": 32,
+                      "id": 30,
                       "name": "i",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 29,
-                      "src": "552:1:0",
+                      "referencedDeclaration": 27,
+                      "src": "505:1:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -410,18 +384,18 @@
                       "argumentTypes": null,
                       "expression": {
                         "argumentTypes": null,
-                        "id": 33,
+                        "id": 31,
                         "name": "investors",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 19,
-                        "src": "556:9:0",
+                        "referencedDeclaration": 17,
+                        "src": "509:9:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_array$_t_struct$_Investor__$16_storage_$dyn_storage_ptr",
+                          "typeIdentifier": "t_array$_t_struct$_Investor__$14_storage_$dyn_storage_ptr",
                           "typeString": "struct Investor.Investor_ storage ref[] storage pointer"
                         }
                       },
-                      "id": 34,
+                      "id": 32,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
@@ -429,31 +403,31 @@
                       "memberName": "length",
                       "nodeType": "MemberAccess",
                       "referencedDeclaration": null,
-                      "src": "556:16:0",
+                      "src": "509:16:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       }
                     },
-                    "src": "552:20:0",
+                    "src": "505:20:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     }
                   },
-                  "id": 52,
+                  "id": 50,
                   "initializationExpression": {
                     "assignments": [
-                      29
+                      27
                     ],
                     "declarations": [
                       {
                         "constant": false,
-                        "id": 29,
+                        "id": 27,
                         "name": "i",
                         "nodeType": "VariableDeclaration",
-                        "scope": 58,
-                        "src": "537:9:0",
+                        "scope": 56,
+                        "src": "490:9:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -461,10 +435,10 @@
                           "typeString": "uint256"
                         },
                         "typeName": {
-                          "id": 28,
+                          "id": 26,
                           "name": "uint256",
                           "nodeType": "ElementaryTypeName",
-                          "src": "537:7:0",
+                          "src": "490:7:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -474,18 +448,18 @@
                         "visibility": "internal"
                       }
                     ],
-                    "id": 31,
+                    "id": 29,
                     "initialValue": {
                       "argumentTypes": null,
                       "hexValue": "30",
-                      "id": 30,
+                      "id": 28,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
                       "kind": "number",
                       "lValueRequested": false,
                       "nodeType": "Literal",
-                      "src": "549:1:0",
+                      "src": "502:1:0",
                       "subdenomination": null,
                       "typeDescriptions": {
                         "typeIdentifier": "t_rational_0_by_1",
@@ -494,12 +468,12 @@
                       "value": "0"
                     },
                     "nodeType": "VariableDeclarationStatement",
-                    "src": "537:13:0"
+                    "src": "490:13:0"
                   },
                   "loopExpression": {
                     "expression": {
                       "argumentTypes": null,
-                      "id": 37,
+                      "id": 35,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -507,15 +481,15 @@
                       "nodeType": "UnaryOperation",
                       "operator": "++",
                       "prefix": false,
-                      "src": "574:3:0",
+                      "src": "527:3:0",
                       "subExpression": {
                         "argumentTypes": null,
-                        "id": 36,
+                        "id": 34,
                         "name": "i",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 29,
-                        "src": "574:1:0",
+                        "referencedDeclaration": 27,
+                        "src": "527:1:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -526,12 +500,12 @@
                         "typeString": "uint256"
                       }
                     },
-                    "id": 38,
+                    "id": 36,
                     "nodeType": "ExpressionStatement",
-                    "src": "574:3:0"
+                    "src": "527:3:0"
                   },
                   "nodeType": "ForStatement",
-                  "src": "532:147:0"
+                  "src": "485:147:0"
                 },
                 {
                   "expression": {
@@ -540,14 +514,14 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "66616c7365",
-                        "id": 53,
+                        "id": 51,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
                         "kind": "bool",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "696:5:0",
+                        "src": "649:5:0",
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
@@ -558,14 +532,14 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "30",
-                        "id": 54,
+                        "id": 52,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
                         "kind": "number",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "703:1:0",
+                        "src": "656:1:0",
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_rational_0_by_1",
@@ -574,28 +548,28 @@
                         "value": "0"
                       }
                     ],
-                    "id": 55,
+                    "id": 53,
                     "isConstant": false,
                     "isInlineArray": false,
                     "isLValue": false,
                     "isPure": true,
                     "lValueRequested": false,
                     "nodeType": "TupleExpression",
-                    "src": "695:10:0",
+                    "src": "648:10:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$_t_bool_$_t_rational_0_by_1_$",
                       "typeString": "tuple(bool,int_const 0)"
                     }
                   },
-                  "functionReturnParameters": 27,
-                  "id": 56,
+                  "functionReturnParameters": 25,
+                  "id": 54,
                   "nodeType": "Return",
-                  "src": "688:17:0"
+                  "src": "641:17:0"
                 }
               ]
             },
             "documentation": null,
-            "id": 58,
+            "id": 56,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -603,41 +577,41 @@
             "name": "findInIdx",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 22,
+              "id": 20,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 19,
+                  "id": 17,
                   "name": "investors",
                   "nodeType": "VariableDeclaration",
-                  "scope": 58,
-                  "src": "438:29:0",
+                  "scope": 56,
+                  "src": "390:29:0",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_struct$_Investor__$16_storage_$dyn_storage_ptr",
+                    "typeIdentifier": "t_array$_t_struct$_Investor__$14_storage_$dyn_storage_ptr",
                     "typeString": "struct Investor.Investor_[]"
                   },
                   "typeName": {
                     "baseType": {
                       "contractScope": null,
-                      "id": 17,
+                      "id": 15,
                       "name": "Investor_",
                       "nodeType": "UserDefinedTypeName",
-                      "referencedDeclaration": 16,
-                      "src": "438:9:0",
+                      "referencedDeclaration": 14,
+                      "src": "390:9:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Investor__$16_storage_ptr",
+                        "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
                         "typeString": "struct Investor.Investor_"
                       }
                     },
-                    "id": 18,
+                    "id": 16,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "438:11:0",
+                    "src": "390:11:0",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_array$_t_struct$_Investor__$16_storage_$dyn_storage_ptr",
+                      "typeIdentifier": "t_array$_t_struct$_Investor__$14_storage_$dyn_storage_ptr",
                       "typeString": "struct Investor.Investor_[]"
                     }
                   },
@@ -646,11 +620,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 21,
+                  "id": 19,
                   "name": "id",
                   "nodeType": "VariableDeclaration",
-                  "scope": 58,
-                  "src": "469:10:0",
+                  "scope": 56,
+                  "src": "421:10:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -658,10 +632,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 20,
+                    "id": 18,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "469:7:0",
+                    "src": "421:7:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -671,20 +645,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "437:43:0"
+              "src": "389:43:0"
             },
             "payable": false,
             "returnParameters": {
-              "id": 27,
+              "id": 25,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 24,
+                  "id": 22,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 58,
-                  "src": "508:4:0",
+                  "scope": 56,
+                  "src": "460:4:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -692,10 +666,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 23,
+                    "id": 21,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "508:4:0",
+                    "src": "460:4:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -706,11 +680,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 26,
+                  "id": 24,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 58,
-                  "src": "514:7:0",
+                  "scope": 56,
+                  "src": "466:7:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -718,10 +692,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 25,
+                    "id": 23,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "514:7:0",
+                    "src": "466:7:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -731,45 +705,45 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "507:15:0"
+              "src": "459:15:0"
             },
-            "scope": 72,
-            "src": "419:293:0",
+            "scope": 169,
+            "src": "371:294:0",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "internal"
           },
           {
             "body": {
-              "id": 70,
+              "id": 99,
               "nodeType": "Block",
-              "src": "769:76:0",
+              "src": "819:240:0",
               "statements": [
                 {
                   "assignments": [],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 66,
+                      "id": 70,
                       "name": "investor",
                       "nodeType": "VariableDeclaration",
-                      "scope": 71,
-                      "src": "779:34:0",
+                      "scope": 100,
+                      "src": "829:34:0",
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Investor__$16_memory_ptr",
+                        "typeIdentifier": "t_struct$_Investor__$14_memory_ptr",
                         "typeString": "struct Investor.Investor_"
                       },
                       "typeName": {
                         "contractScope": null,
-                        "id": 65,
+                        "id": 69,
                         "name": "Investor.Investor_",
                         "nodeType": "UserDefinedTypeName",
-                        "referencedDeclaration": 16,
-                        "src": "779:18:0",
+                        "referencedDeclaration": 14,
+                        "src": "829:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Investor__$16_storage_ptr",
+                          "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
                           "typeString": "struct Investor.Investor_"
                         }
                       },
@@ -777,73 +751,416 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 67,
+                  "id": 71,
                   "initialValue": null,
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "779:34:0"
+                  "src": "829:34:0"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 68,
+                    "id": 76,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 72,
+                        "name": "investor",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 70,
+                        "src": "873:8:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Investor__$14_memory_ptr",
+                          "typeString": "struct Investor.Investor_ memory"
+                        }
+                      },
+                      "id": 74,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "id",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 7,
+                      "src": "873:11:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 75,
+                      "name": "_id",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 58,
+                      "src": "887:3:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "873:17:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 77,
+                  "nodeType": "ExpressionStatement",
+                  "src": "873:17:0"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 82,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 78,
+                        "name": "investor",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 70,
+                        "src": "900:8:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Investor__$14_memory_ptr",
+                          "typeString": "struct Investor.Investor_ memory"
+                        }
+                      },
+                      "id": 80,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "investABSNum",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 9,
+                      "src": "900:21:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 81,
+                      "name": "_investABSNum",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 60,
+                      "src": "924:13:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "900:37:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 83,
+                  "nodeType": "ExpressionStatement",
+                  "src": "900:37:0"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 88,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 84,
+                        "name": "investor",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 70,
+                        "src": "947:8:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Investor__$14_memory_ptr",
+                          "typeString": "struct Investor.Investor_ memory"
+                        }
+                      },
+                      "id": 86,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "ownerTokenNum",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 11,
+                      "src": "947:22:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 87,
+                      "name": "_ownerTokenNum",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 62,
+                      "src": "972:14:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "947:39:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 89,
+                  "nodeType": "ExpressionStatement",
+                  "src": "947:39:0"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 95,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 90,
+                        "name": "investor",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 70,
+                        "src": "997:8:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Investor__$14_memory_ptr",
+                          "typeString": "struct Investor.Investor_ memory"
+                        }
+                      },
+                      "id": 92,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "state",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 13,
+                      "src": "997:14:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$5",
+                        "typeString": "enum Investor.State"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 93,
+                        "name": "State",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 5,
+                        "src": "1014:5:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_enum$_State_$5_$",
+                          "typeString": "type(enum Investor.State)"
+                        }
+                      },
+                      "id": 94,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "lValueRequested": false,
+                      "memberName": "UnVoted",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "1014:13:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$5",
+                        "typeString": "enum Investor.State"
+                      }
+                    },
+                    "src": "997:30:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_enum$_State_$5",
+                      "typeString": "enum Investor.State"
+                    }
+                  },
+                  "id": 96,
+                  "nodeType": "ExpressionStatement",
+                  "src": "997:30:0"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 97,
                     "name": "investor",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 66,
-                    "src": "830:8:0",
+                    "referencedDeclaration": 70,
+                    "src": "1044:8:0",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Investor__$16_memory_ptr",
+                      "typeIdentifier": "t_struct$_Investor__$14_memory_ptr",
                       "typeString": "struct Investor.Investor_ memory"
                     }
                   },
-                  "functionReturnParameters": 62,
-                  "id": 69,
+                  "functionReturnParameters": 66,
+                  "id": 98,
                   "nodeType": "Return",
-                  "src": "823:15:0"
+                  "src": "1037:15:0"
                 }
               ]
             },
             "documentation": null,
-            "id": 71,
+            "id": 100,
             "implemented": true,
             "isConstructor": false,
-            "isDeclaredConst": false,
+            "isDeclaredConst": true,
             "modifiers": [],
             "name": "newInvestor",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 59,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "738:2:0"
-            },
-            "payable": false,
-            "returnParameters": {
-              "id": 62,
+              "id": 63,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 61,
-                  "name": "",
+                  "id": 58,
+                  "name": "_id",
                   "nodeType": "VariableDeclaration",
-                  "scope": 71,
-                  "src": "759:9:0",
+                  "scope": 100,
+                  "src": "721:11:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Investor__$16_memory_ptr",
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 57,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "721:7:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 60,
+                  "name": "_investABSNum",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 100,
+                  "src": "734:21:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 59,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "734:7:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 62,
+                  "name": "_ownerTokenNum",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 100,
+                  "src": "757:22:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 61,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "757:7:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "720:60:0"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 66,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 65,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 100,
+                  "src": "808:9:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Investor__$14_memory_ptr",
                     "typeString": "struct Investor.Investor_"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 60,
+                    "id": 64,
                     "name": "Investor_",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 16,
-                    "src": "759:9:0",
+                    "referencedDeclaration": 14,
+                    "src": "808:9:0",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Investor__$16_storage_ptr",
+                      "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
                       "typeString": "struct Investor.Investor_"
                     }
                   },
@@ -851,29 +1168,829 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "758:11:0"
+              "src": "807:11:0"
             },
-            "scope": 72,
-            "src": "718:127:0",
+            "scope": 169,
+            "src": "700:359:0",
+            "stateMutability": "pure",
+            "superFunction": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 113,
+              "nodeType": "Block",
+              "src": "1143:55:0",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "commonType": {
+                      "typeIdentifier": "t_enum$_State_$5",
+                      "typeString": "enum Investor.State"
+                    },
+                    "id": 111,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 107,
+                        "name": "investor",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 102,
+                        "src": "1160:8:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                          "typeString": "struct Investor.Investor_ storage pointer"
+                        }
+                      },
+                      "id": 108,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "state",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 13,
+                      "src": "1160:14:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$5",
+                        "typeString": "enum Investor.State"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "!=",
+                    "rightExpression": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 109,
+                        "name": "State",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 5,
+                        "src": "1178:5:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_enum$_State_$5_$",
+                          "typeString": "type(enum Investor.State)"
+                        }
+                      },
+                      "id": 110,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "lValueRequested": false,
+                      "memberName": "UnVoted",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "1178:13:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$5",
+                        "typeString": "enum Investor.State"
+                      }
+                    },
+                    "src": "1160:31:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 106,
+                  "id": 112,
+                  "nodeType": "Return",
+                  "src": "1153:38:0"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 114,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "isVoted",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 103,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 102,
+                  "name": "investor",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 114,
+                  "src": "1082:26:0",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                    "typeString": "struct Investor.Investor_"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 101,
+                    "name": "Investor_",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 14,
+                    "src": "1082:9:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                      "typeString": "struct Investor.Investor_"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1081:28:0"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 106,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 105,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 114,
+                  "src": "1137:4:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 104,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1137:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1136:6:0"
+            },
+            "scope": 169,
+            "src": "1065:133:0",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 127,
+              "nodeType": "Block",
+              "src": "1283:53:0",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "commonType": {
+                      "typeIdentifier": "t_enum$_State_$5",
+                      "typeString": "enum Investor.State"
+                    },
+                    "id": 125,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 121,
+                        "name": "investor",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 116,
+                        "src": "1300:8:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                          "typeString": "struct Investor.Investor_ storage pointer"
+                        }
+                      },
+                      "id": 122,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "state",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 13,
+                      "src": "1300:14:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$5",
+                        "typeString": "enum Investor.State"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "==",
+                    "rightExpression": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 123,
+                        "name": "State",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 5,
+                        "src": "1318:5:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_enum$_State_$5_$",
+                          "typeString": "type(enum Investor.State)"
+                        }
+                      },
+                      "id": 124,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "lValueRequested": false,
+                      "memberName": "Agree",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "1318:11:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$5",
+                        "typeString": "enum Investor.State"
+                      }
+                    },
+                    "src": "1300:29:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 120,
+                  "id": 126,
+                  "nodeType": "Return",
+                  "src": "1293:36:0"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 128,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "isAgreed",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 117,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 116,
+                  "name": "investor",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 128,
+                  "src": "1222:26:0",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                    "typeString": "struct Investor.Investor_"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 115,
+                    "name": "Investor_",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 14,
+                    "src": "1222:9:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                      "typeString": "struct Investor.Investor_"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1221:28:0"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 120,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 119,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 128,
+                  "src": "1277:4:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 118,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1277:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1276:6:0"
+            },
+            "scope": 169,
+            "src": "1204:132:0",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 141,
+              "nodeType": "Block",
+              "src": "1421:54:0",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "commonType": {
+                      "typeIdentifier": "t_enum$_State_$5",
+                      "typeString": "enum Investor.State"
+                    },
+                    "id": 139,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 135,
+                        "name": "investor",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 130,
+                        "src": "1438:8:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                          "typeString": "struct Investor.Investor_ storage pointer"
+                        }
+                      },
+                      "id": 136,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "state",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 13,
+                      "src": "1438:14:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$5",
+                        "typeString": "enum Investor.State"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "==",
+                    "rightExpression": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 137,
+                        "name": "State",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 5,
+                        "src": "1456:5:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_enum$_State_$5_$",
+                          "typeString": "type(enum Investor.State)"
+                        }
+                      },
+                      "id": 138,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "lValueRequested": false,
+                      "memberName": "Oppose",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "1456:12:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$5",
+                        "typeString": "enum Investor.State"
+                      }
+                    },
+                    "src": "1438:30:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 134,
+                  "id": 140,
+                  "nodeType": "Return",
+                  "src": "1431:37:0"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 142,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "isOppose",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 131,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 130,
+                  "name": "investor",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 142,
+                  "src": "1360:26:0",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                    "typeString": "struct Investor.Investor_"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 129,
+                    "name": "Investor_",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 14,
+                    "src": "1360:9:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                      "typeString": "struct Investor.Investor_"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1359:28:0"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 134,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 133,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 142,
+                  "src": "1415:4:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 132,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1415:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1414:6:0"
+            },
+            "scope": 169,
+            "src": "1342:133:0",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 167,
+              "nodeType": "Block",
+              "src": "1544:140:0",
+              "statements": [
+                {
+                  "condition": {
+                    "argumentTypes": null,
+                    "id": 149,
+                    "name": "agree",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 146,
+                    "src": "1558:5:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "falseBody": {
+                    "id": 165,
+                    "nodeType": "Block",
+                    "src": "1624:54:0",
+                    "statements": [
+                      {
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 163,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftHandSide": {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 158,
+                              "name": "investor",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 144,
+                              "src": "1638:8:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                                "typeString": "struct Investor.Investor_ storage pointer"
+                              }
+                            },
+                            "id": 160,
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": true,
+                            "memberName": "state",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 13,
+                            "src": "1638:14:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_enum$_State_$5",
+                              "typeString": "enum Investor.State"
+                            }
+                          },
+                          "nodeType": "Assignment",
+                          "operator": "=",
+                          "rightHandSide": {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 161,
+                              "name": "State",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 5,
+                              "src": "1655:5:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_type$_t_enum$_State_$5_$",
+                                "typeString": "type(enum Investor.State)"
+                              }
+                            },
+                            "id": 162,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "lValueRequested": false,
+                            "memberName": "Oppose",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": null,
+                            "src": "1655:12:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_enum$_State_$5",
+                              "typeString": "enum Investor.State"
+                            }
+                          },
+                          "src": "1638:29:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_enum$_State_$5",
+                            "typeString": "enum Investor.State"
+                          }
+                        },
+                        "id": 164,
+                        "nodeType": "ExpressionStatement",
+                        "src": "1638:29:0"
+                      }
+                    ]
+                  },
+                  "id": 166,
+                  "nodeType": "IfStatement",
+                  "src": "1554:124:0",
+                  "trueBody": {
+                    "id": 157,
+                    "nodeType": "Block",
+                    "src": "1565:53:0",
+                    "statements": [
+                      {
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 155,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftHandSide": {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 150,
+                              "name": "investor",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 144,
+                              "src": "1579:8:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                                "typeString": "struct Investor.Investor_ storage pointer"
+                              }
+                            },
+                            "id": 152,
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": true,
+                            "memberName": "state",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 13,
+                            "src": "1579:14:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_enum$_State_$5",
+                              "typeString": "enum Investor.State"
+                            }
+                          },
+                          "nodeType": "Assignment",
+                          "operator": "=",
+                          "rightHandSide": {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 153,
+                              "name": "State",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 5,
+                              "src": "1596:5:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_type$_t_enum$_State_$5_$",
+                                "typeString": "type(enum Investor.State)"
+                              }
+                            },
+                            "id": 154,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "lValueRequested": false,
+                            "memberName": "Agree",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": null,
+                            "src": "1596:11:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_enum$_State_$5",
+                              "typeString": "enum Investor.State"
+                            }
+                          },
+                          "src": "1579:28:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_enum$_State_$5",
+                            "typeString": "enum Investor.State"
+                          }
+                        },
+                        "id": 156,
+                        "nodeType": "ExpressionStatement",
+                        "src": "1579:28:0"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 168,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "vote",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 147,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 144,
+                  "name": "investor",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 168,
+                  "src": "1495:26:0",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                    "typeString": "struct Investor.Investor_"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 143,
+                    "name": "Investor_",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 14,
+                    "src": "1495:9:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                      "typeString": "struct Investor.Investor_"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 146,
+                  "name": "agree",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 168,
+                  "src": "1523:10:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 145,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1523:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1494:40:0"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 148,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1544:0:0"
+            },
+            "scope": 169,
+            "src": "1481:203:0",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "internal"
           }
         ],
-        "scope": 73,
-        "src": "26:821:0"
+        "scope": 170,
+        "src": "26:1660:0"
       }
     ],
-    "src": "0:848:0"
+    "src": "0:1687:0"
   },
   "legacyAST": {
     "absolutePath": "/mnt/disk1/linux/reference/project/testsol/stages/contracts/Investor.sol",
     "exportedSymbols": {
       "Investor": [
-        72
+        169
       ]
     },
-    "id": 73,
+    "id": 170,
     "nodeType": "SourceUnit",
     "nodes": [
       {
@@ -893,9 +2010,9 @@
         "contractKind": "library",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 72,
+        "id": 169,
         "linearizedBaseContracts": [
-          72
+          169
         ],
         "name": "Investor",
         "nodeType": "ContractDefinition",
@@ -929,14 +2046,14 @@
           },
           {
             "canonicalName": "Investor.Investor_",
-            "id": 16,
+            "id": 14,
             "members": [
               {
                 "constant": false,
                 "id": 7,
                 "name": "id",
                 "nodeType": "VariableDeclaration",
-                "scope": 16,
+                "scope": 14,
                 "src": "118:10:0",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -962,7 +2079,7 @@
                 "id": 9,
                 "name": "investABSNum",
                 "nodeType": "VariableDeclaration",
-                "scope": 16,
+                "scope": 14,
                 "src": "169:20:0",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -988,8 +2105,8 @@
                 "id": 11,
                 "name": "ownerTokenNum",
                 "nodeType": "VariableDeclaration",
-                "scope": 16,
-                "src": "232:21:0",
+                "scope": 14,
+                "src": "229:21:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1000,7 +2117,7 @@
                   "id": 10,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "232:7:0",
+                  "src": "229:7:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -1014,8 +2131,8 @@
                 "id": 13,
                 "name": "state",
                 "nodeType": "VariableDeclaration",
-                "scope": 16,
-                "src": "288:11:0",
+                "scope": 14,
+                "src": "291:11:0",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -1028,36 +2145,10 @@
                   "name": "State",
                   "nodeType": "UserDefinedTypeName",
                   "referencedDeclaration": 5,
-                  "src": "288:5:0",
+                  "src": "291:5:0",
                   "typeDescriptions": {
                     "typeIdentifier": "t_enum$_State_$5",
                     "typeString": "enum Investor.State"
-                  }
-                },
-                "value": null,
-                "visibility": "internal"
-              },
-              {
-                "constant": false,
-                "id": 15,
-                "name": "voted",
-                "nodeType": "VariableDeclaration",
-                "scope": 16,
-                "src": "330:10:0",
-                "stateVariable": false,
-                "storageLocation": "default",
-                "typeDescriptions": {
-                  "typeIdentifier": "t_bool",
-                  "typeString": "bool"
-                },
-                "typeName": {
-                  "id": 14,
-                  "name": "bool",
-                  "nodeType": "ElementaryTypeName",
-                  "src": "330:4:0",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_bool",
-                    "typeString": "bool"
                   }
                 },
                 "value": null,
@@ -1066,21 +2157,21 @@
             ],
             "name": "Investor_",
             "nodeType": "StructDefinition",
-            "scope": 72,
-            "src": "91:287:0",
+            "scope": 169,
+            "src": "91:239:0",
             "visibility": "public"
           },
           {
             "body": {
-              "id": 57,
+              "id": 55,
               "nodeType": "Block",
-              "src": "522:190:0",
+              "src": "475:190:0",
               "statements": [
                 {
                   "body": {
-                    "id": 51,
+                    "id": 49,
                     "nodeType": "Block",
-                    "src": "579:100:0",
+                    "src": "532:100:0",
                     "statements": [
                       {
                         "condition": {
@@ -1089,7 +2180,7 @@
                             "typeIdentifier": "t_address",
                             "typeString": "address"
                           },
-                          "id": 44,
+                          "id": 42,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": false,
@@ -1100,26 +2191,26 @@
                               "argumentTypes": null,
                               "baseExpression": {
                                 "argumentTypes": null,
-                                "id": 39,
+                                "id": 37,
                                 "name": "investors",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 19,
-                                "src": "597:9:0",
+                                "referencedDeclaration": 17,
+                                "src": "550:9:0",
                                 "typeDescriptions": {
-                                  "typeIdentifier": "t_array$_t_struct$_Investor__$16_storage_$dyn_storage_ptr",
+                                  "typeIdentifier": "t_array$_t_struct$_Investor__$14_storage_$dyn_storage_ptr",
                                   "typeString": "struct Investor.Investor_ storage ref[] storage pointer"
                                 }
                               },
-                              "id": 41,
+                              "id": 39,
                               "indexExpression": {
                                 "argumentTypes": null,
-                                "id": 40,
+                                "id": 38,
                                 "name": "i",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [],
-                                "referencedDeclaration": 29,
-                                "src": "607:1:0",
+                                "referencedDeclaration": 27,
+                                "src": "560:1:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_uint256",
                                   "typeString": "uint256"
@@ -1130,13 +2221,13 @@
                               "isPure": false,
                               "lValueRequested": false,
                               "nodeType": "IndexAccess",
-                              "src": "597:12:0",
+                              "src": "550:12:0",
                               "typeDescriptions": {
-                                "typeIdentifier": "t_struct$_Investor__$16_storage",
+                                "typeIdentifier": "t_struct$_Investor__$14_storage",
                                 "typeString": "struct Investor.Investor_ storage ref"
                               }
                             },
-                            "id": 42,
+                            "id": 40,
                             "isConstant": false,
                             "isLValue": true,
                             "isPure": false,
@@ -1144,7 +2235,7 @@
                             "memberName": "id",
                             "nodeType": "MemberAccess",
                             "referencedDeclaration": 7,
-                            "src": "597:15:0",
+                            "src": "550:15:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
                               "typeString": "address"
@@ -1154,31 +2245,31 @@
                           "operator": "==",
                           "rightExpression": {
                             "argumentTypes": null,
-                            "id": 43,
+                            "id": 41,
                             "name": "id",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 21,
-                            "src": "616:2:0",
+                            "referencedDeclaration": 19,
+                            "src": "569:2:0",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
                               "typeString": "address"
                             }
                           },
-                          "src": "597:21:0",
+                          "src": "550:21:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_bool",
                             "typeString": "bool"
                           }
                         },
                         "falseBody": null,
-                        "id": 50,
+                        "id": 48,
                         "nodeType": "IfStatement",
-                        "src": "593:76:0",
+                        "src": "546:76:0",
                         "trueBody": {
-                          "id": 49,
+                          "id": 47,
                           "nodeType": "Block",
-                          "src": "620:49:0",
+                          "src": "573:49:0",
                           "statements": [
                             {
                               "expression": {
@@ -1187,14 +2278,14 @@
                                   {
                                     "argumentTypes": null,
                                     "hexValue": "74727565",
-                                    "id": 45,
+                                    "id": 43,
                                     "isConstant": false,
                                     "isLValue": false,
                                     "isPure": true,
                                     "kind": "bool",
                                     "lValueRequested": false,
                                     "nodeType": "Literal",
-                                    "src": "646:4:0",
+                                    "src": "599:4:0",
                                     "subdenomination": null,
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_bool",
@@ -1204,35 +2295,35 @@
                                   },
                                   {
                                     "argumentTypes": null,
-                                    "id": 46,
+                                    "id": 44,
                                     "name": "i",
                                     "nodeType": "Identifier",
                                     "overloadedDeclarations": [],
-                                    "referencedDeclaration": 29,
-                                    "src": "652:1:0",
+                                    "referencedDeclaration": 27,
+                                    "src": "605:1:0",
                                     "typeDescriptions": {
                                       "typeIdentifier": "t_uint256",
                                       "typeString": "uint256"
                                     }
                                   }
                                 ],
-                                "id": 47,
+                                "id": 45,
                                 "isConstant": false,
                                 "isInlineArray": false,
                                 "isLValue": false,
                                 "isPure": false,
                                 "lValueRequested": false,
                                 "nodeType": "TupleExpression",
-                                "src": "645:9:0",
+                                "src": "598:9:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_tuple$_t_bool_$_t_uint256_$",
                                   "typeString": "tuple(bool,uint256)"
                                 }
                               },
-                              "functionReturnParameters": 27,
-                              "id": 48,
+                              "functionReturnParameters": 25,
+                              "id": 46,
                               "nodeType": "Return",
-                              "src": "638:16:0"
+                              "src": "591:16:0"
                             }
                           ]
                         }
@@ -1245,19 +2336,19 @@
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     },
-                    "id": 35,
+                    "id": 33,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
                     "lValueRequested": false,
                     "leftExpression": {
                       "argumentTypes": null,
-                      "id": 32,
+                      "id": 30,
                       "name": "i",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 29,
-                      "src": "552:1:0",
+                      "referencedDeclaration": 27,
+                      "src": "505:1:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
@@ -1269,18 +2360,18 @@
                       "argumentTypes": null,
                       "expression": {
                         "argumentTypes": null,
-                        "id": 33,
+                        "id": 31,
                         "name": "investors",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 19,
-                        "src": "556:9:0",
+                        "referencedDeclaration": 17,
+                        "src": "509:9:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_array$_t_struct$_Investor__$16_storage_$dyn_storage_ptr",
+                          "typeIdentifier": "t_array$_t_struct$_Investor__$14_storage_$dyn_storage_ptr",
                           "typeString": "struct Investor.Investor_ storage ref[] storage pointer"
                         }
                       },
-                      "id": 34,
+                      "id": 32,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
@@ -1288,31 +2379,31 @@
                       "memberName": "length",
                       "nodeType": "MemberAccess",
                       "referencedDeclaration": null,
-                      "src": "556:16:0",
+                      "src": "509:16:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       }
                     },
-                    "src": "552:20:0",
+                    "src": "505:20:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     }
                   },
-                  "id": 52,
+                  "id": 50,
                   "initializationExpression": {
                     "assignments": [
-                      29
+                      27
                     ],
                     "declarations": [
                       {
                         "constant": false,
-                        "id": 29,
+                        "id": 27,
                         "name": "i",
                         "nodeType": "VariableDeclaration",
-                        "scope": 58,
-                        "src": "537:9:0",
+                        "scope": 56,
+                        "src": "490:9:0",
                         "stateVariable": false,
                         "storageLocation": "default",
                         "typeDescriptions": {
@@ -1320,10 +2411,10 @@
                           "typeString": "uint256"
                         },
                         "typeName": {
-                          "id": 28,
+                          "id": 26,
                           "name": "uint256",
                           "nodeType": "ElementaryTypeName",
-                          "src": "537:7:0",
+                          "src": "490:7:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
                             "typeString": "uint256"
@@ -1333,18 +2424,18 @@
                         "visibility": "internal"
                       }
                     ],
-                    "id": 31,
+                    "id": 29,
                     "initialValue": {
                       "argumentTypes": null,
                       "hexValue": "30",
-                      "id": 30,
+                      "id": 28,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
                       "kind": "number",
                       "lValueRequested": false,
                       "nodeType": "Literal",
-                      "src": "549:1:0",
+                      "src": "502:1:0",
                       "subdenomination": null,
                       "typeDescriptions": {
                         "typeIdentifier": "t_rational_0_by_1",
@@ -1353,12 +2444,12 @@
                       "value": "0"
                     },
                     "nodeType": "VariableDeclarationStatement",
-                    "src": "537:13:0"
+                    "src": "490:13:0"
                   },
                   "loopExpression": {
                     "expression": {
                       "argumentTypes": null,
-                      "id": 37,
+                      "id": 35,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -1366,15 +2457,15 @@
                       "nodeType": "UnaryOperation",
                       "operator": "++",
                       "prefix": false,
-                      "src": "574:3:0",
+                      "src": "527:3:0",
                       "subExpression": {
                         "argumentTypes": null,
-                        "id": 36,
+                        "id": 34,
                         "name": "i",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 29,
-                        "src": "574:1:0",
+                        "referencedDeclaration": 27,
+                        "src": "527:1:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
                           "typeString": "uint256"
@@ -1385,12 +2476,12 @@
                         "typeString": "uint256"
                       }
                     },
-                    "id": 38,
+                    "id": 36,
                     "nodeType": "ExpressionStatement",
-                    "src": "574:3:0"
+                    "src": "527:3:0"
                   },
                   "nodeType": "ForStatement",
-                  "src": "532:147:0"
+                  "src": "485:147:0"
                 },
                 {
                   "expression": {
@@ -1399,14 +2490,14 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "66616c7365",
-                        "id": 53,
+                        "id": 51,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
                         "kind": "bool",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "696:5:0",
+                        "src": "649:5:0",
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
@@ -1417,14 +2508,14 @@
                       {
                         "argumentTypes": null,
                         "hexValue": "30",
-                        "id": 54,
+                        "id": 52,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
                         "kind": "number",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "703:1:0",
+                        "src": "656:1:0",
                         "subdenomination": null,
                         "typeDescriptions": {
                           "typeIdentifier": "t_rational_0_by_1",
@@ -1433,28 +2524,28 @@
                         "value": "0"
                       }
                     ],
-                    "id": 55,
+                    "id": 53,
                     "isConstant": false,
                     "isInlineArray": false,
                     "isLValue": false,
                     "isPure": true,
                     "lValueRequested": false,
                     "nodeType": "TupleExpression",
-                    "src": "695:10:0",
+                    "src": "648:10:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$_t_bool_$_t_rational_0_by_1_$",
                       "typeString": "tuple(bool,int_const 0)"
                     }
                   },
-                  "functionReturnParameters": 27,
-                  "id": 56,
+                  "functionReturnParameters": 25,
+                  "id": 54,
                   "nodeType": "Return",
-                  "src": "688:17:0"
+                  "src": "641:17:0"
                 }
               ]
             },
             "documentation": null,
-            "id": 58,
+            "id": 56,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -1462,41 +2553,41 @@
             "name": "findInIdx",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 22,
+              "id": 20,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 19,
+                  "id": 17,
                   "name": "investors",
                   "nodeType": "VariableDeclaration",
-                  "scope": 58,
-                  "src": "438:29:0",
+                  "scope": 56,
+                  "src": "390:29:0",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_struct$_Investor__$16_storage_$dyn_storage_ptr",
+                    "typeIdentifier": "t_array$_t_struct$_Investor__$14_storage_$dyn_storage_ptr",
                     "typeString": "struct Investor.Investor_[]"
                   },
                   "typeName": {
                     "baseType": {
                       "contractScope": null,
-                      "id": 17,
+                      "id": 15,
                       "name": "Investor_",
                       "nodeType": "UserDefinedTypeName",
-                      "referencedDeclaration": 16,
-                      "src": "438:9:0",
+                      "referencedDeclaration": 14,
+                      "src": "390:9:0",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Investor__$16_storage_ptr",
+                        "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
                         "typeString": "struct Investor.Investor_"
                       }
                     },
-                    "id": 18,
+                    "id": 16,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "438:11:0",
+                    "src": "390:11:0",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_array$_t_struct$_Investor__$16_storage_$dyn_storage_ptr",
+                      "typeIdentifier": "t_array$_t_struct$_Investor__$14_storage_$dyn_storage_ptr",
                       "typeString": "struct Investor.Investor_[]"
                     }
                   },
@@ -1505,11 +2596,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 21,
+                  "id": 19,
                   "name": "id",
                   "nodeType": "VariableDeclaration",
-                  "scope": 58,
-                  "src": "469:10:0",
+                  "scope": 56,
+                  "src": "421:10:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1517,10 +2608,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 20,
+                    "id": 18,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "469:7:0",
+                    "src": "421:7:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
@@ -1530,20 +2621,20 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "437:43:0"
+              "src": "389:43:0"
             },
             "payable": false,
             "returnParameters": {
-              "id": 27,
+              "id": 25,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 24,
+                  "id": 22,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 58,
-                  "src": "508:4:0",
+                  "scope": 56,
+                  "src": "460:4:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1551,10 +2642,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 23,
+                    "id": 21,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "508:4:0",
+                    "src": "460:4:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -1565,11 +2656,11 @@
                 },
                 {
                   "constant": false,
-                  "id": 26,
+                  "id": 24,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 58,
-                  "src": "514:7:0",
+                  "scope": 56,
+                  "src": "466:7:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1577,10 +2668,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 25,
+                    "id": 23,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "514:7:0",
+                    "src": "466:7:0",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1590,45 +2681,45 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "507:15:0"
+              "src": "459:15:0"
             },
-            "scope": 72,
-            "src": "419:293:0",
+            "scope": 169,
+            "src": "371:294:0",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "internal"
           },
           {
             "body": {
-              "id": 70,
+              "id": 99,
               "nodeType": "Block",
-              "src": "769:76:0",
+              "src": "819:240:0",
               "statements": [
                 {
                   "assignments": [],
                   "declarations": [
                     {
                       "constant": false,
-                      "id": 66,
+                      "id": 70,
                       "name": "investor",
                       "nodeType": "VariableDeclaration",
-                      "scope": 71,
-                      "src": "779:34:0",
+                      "scope": 100,
+                      "src": "829:34:0",
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Investor__$16_memory_ptr",
+                        "typeIdentifier": "t_struct$_Investor__$14_memory_ptr",
                         "typeString": "struct Investor.Investor_"
                       },
                       "typeName": {
                         "contractScope": null,
-                        "id": 65,
+                        "id": 69,
                         "name": "Investor.Investor_",
                         "nodeType": "UserDefinedTypeName",
-                        "referencedDeclaration": 16,
-                        "src": "779:18:0",
+                        "referencedDeclaration": 14,
+                        "src": "829:18:0",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Investor__$16_storage_ptr",
+                          "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
                           "typeString": "struct Investor.Investor_"
                         }
                       },
@@ -1636,73 +2727,416 @@
                       "visibility": "internal"
                     }
                   ],
-                  "id": 67,
+                  "id": 71,
                   "initialValue": null,
                   "nodeType": "VariableDeclarationStatement",
-                  "src": "779:34:0"
+                  "src": "829:34:0"
                 },
                 {
                   "expression": {
                     "argumentTypes": null,
-                    "id": 68,
+                    "id": 76,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 72,
+                        "name": "investor",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 70,
+                        "src": "873:8:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Investor__$14_memory_ptr",
+                          "typeString": "struct Investor.Investor_ memory"
+                        }
+                      },
+                      "id": 74,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "id",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 7,
+                      "src": "873:11:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 75,
+                      "name": "_id",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 58,
+                      "src": "887:3:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "873:17:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 77,
+                  "nodeType": "ExpressionStatement",
+                  "src": "873:17:0"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 82,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 78,
+                        "name": "investor",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 70,
+                        "src": "900:8:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Investor__$14_memory_ptr",
+                          "typeString": "struct Investor.Investor_ memory"
+                        }
+                      },
+                      "id": 80,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "investABSNum",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 9,
+                      "src": "900:21:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 81,
+                      "name": "_investABSNum",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 60,
+                      "src": "924:13:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "900:37:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 83,
+                  "nodeType": "ExpressionStatement",
+                  "src": "900:37:0"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 88,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 84,
+                        "name": "investor",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 70,
+                        "src": "947:8:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Investor__$14_memory_ptr",
+                          "typeString": "struct Investor.Investor_ memory"
+                        }
+                      },
+                      "id": 86,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "ownerTokenNum",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 11,
+                      "src": "947:22:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 87,
+                      "name": "_ownerTokenNum",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 62,
+                      "src": "972:14:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "947:39:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 89,
+                  "nodeType": "ExpressionStatement",
+                  "src": "947:39:0"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 95,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 90,
+                        "name": "investor",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 70,
+                        "src": "997:8:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Investor__$14_memory_ptr",
+                          "typeString": "struct Investor.Investor_ memory"
+                        }
+                      },
+                      "id": 92,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberName": "state",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 13,
+                      "src": "997:14:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$5",
+                        "typeString": "enum Investor.State"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 93,
+                        "name": "State",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 5,
+                        "src": "1014:5:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_enum$_State_$5_$",
+                          "typeString": "type(enum Investor.State)"
+                        }
+                      },
+                      "id": 94,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "lValueRequested": false,
+                      "memberName": "UnVoted",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "1014:13:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$5",
+                        "typeString": "enum Investor.State"
+                      }
+                    },
+                    "src": "997:30:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_enum$_State_$5",
+                      "typeString": "enum Investor.State"
+                    }
+                  },
+                  "id": 96,
+                  "nodeType": "ExpressionStatement",
+                  "src": "997:30:0"
+                },
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 97,
                     "name": "investor",
                     "nodeType": "Identifier",
                     "overloadedDeclarations": [],
-                    "referencedDeclaration": 66,
-                    "src": "830:8:0",
+                    "referencedDeclaration": 70,
+                    "src": "1044:8:0",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Investor__$16_memory_ptr",
+                      "typeIdentifier": "t_struct$_Investor__$14_memory_ptr",
                       "typeString": "struct Investor.Investor_ memory"
                     }
                   },
-                  "functionReturnParameters": 62,
-                  "id": 69,
+                  "functionReturnParameters": 66,
+                  "id": 98,
                   "nodeType": "Return",
-                  "src": "823:15:0"
+                  "src": "1037:15:0"
                 }
               ]
             },
             "documentation": null,
-            "id": 71,
+            "id": 100,
             "implemented": true,
             "isConstructor": false,
-            "isDeclaredConst": false,
+            "isDeclaredConst": true,
             "modifiers": [],
             "name": "newInvestor",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 59,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "738:2:0"
-            },
-            "payable": false,
-            "returnParameters": {
-              "id": 62,
+              "id": 63,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 61,
-                  "name": "",
+                  "id": 58,
+                  "name": "_id",
                   "nodeType": "VariableDeclaration",
-                  "scope": 71,
-                  "src": "759:9:0",
+                  "scope": 100,
+                  "src": "721:11:0",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Investor__$16_memory_ptr",
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 57,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "721:7:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 60,
+                  "name": "_investABSNum",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 100,
+                  "src": "734:21:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 59,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "734:7:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 62,
+                  "name": "_ownerTokenNum",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 100,
+                  "src": "757:22:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 61,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "757:7:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "720:60:0"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 66,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 65,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 100,
+                  "src": "808:9:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Investor__$14_memory_ptr",
                     "typeString": "struct Investor.Investor_"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 60,
+                    "id": 64,
                     "name": "Investor_",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 16,
-                    "src": "759:9:0",
+                    "referencedDeclaration": 14,
+                    "src": "808:9:0",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Investor__$16_storage_ptr",
+                      "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
                       "typeString": "struct Investor.Investor_"
                     }
                   },
@@ -1710,20 +3144,820 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "758:11:0"
+              "src": "807:11:0"
             },
-            "scope": 72,
-            "src": "718:127:0",
+            "scope": 169,
+            "src": "700:359:0",
+            "stateMutability": "pure",
+            "superFunction": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 113,
+              "nodeType": "Block",
+              "src": "1143:55:0",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "commonType": {
+                      "typeIdentifier": "t_enum$_State_$5",
+                      "typeString": "enum Investor.State"
+                    },
+                    "id": 111,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 107,
+                        "name": "investor",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 102,
+                        "src": "1160:8:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                          "typeString": "struct Investor.Investor_ storage pointer"
+                        }
+                      },
+                      "id": 108,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "state",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 13,
+                      "src": "1160:14:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$5",
+                        "typeString": "enum Investor.State"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "!=",
+                    "rightExpression": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 109,
+                        "name": "State",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 5,
+                        "src": "1178:5:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_enum$_State_$5_$",
+                          "typeString": "type(enum Investor.State)"
+                        }
+                      },
+                      "id": 110,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "lValueRequested": false,
+                      "memberName": "UnVoted",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "1178:13:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$5",
+                        "typeString": "enum Investor.State"
+                      }
+                    },
+                    "src": "1160:31:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 106,
+                  "id": 112,
+                  "nodeType": "Return",
+                  "src": "1153:38:0"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 114,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "isVoted",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 103,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 102,
+                  "name": "investor",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 114,
+                  "src": "1082:26:0",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                    "typeString": "struct Investor.Investor_"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 101,
+                    "name": "Investor_",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 14,
+                    "src": "1082:9:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                      "typeString": "struct Investor.Investor_"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1081:28:0"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 106,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 105,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 114,
+                  "src": "1137:4:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 104,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1137:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1136:6:0"
+            },
+            "scope": 169,
+            "src": "1065:133:0",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 127,
+              "nodeType": "Block",
+              "src": "1283:53:0",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "commonType": {
+                      "typeIdentifier": "t_enum$_State_$5",
+                      "typeString": "enum Investor.State"
+                    },
+                    "id": 125,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 121,
+                        "name": "investor",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 116,
+                        "src": "1300:8:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                          "typeString": "struct Investor.Investor_ storage pointer"
+                        }
+                      },
+                      "id": 122,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "state",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 13,
+                      "src": "1300:14:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$5",
+                        "typeString": "enum Investor.State"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "==",
+                    "rightExpression": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 123,
+                        "name": "State",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 5,
+                        "src": "1318:5:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_enum$_State_$5_$",
+                          "typeString": "type(enum Investor.State)"
+                        }
+                      },
+                      "id": 124,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "lValueRequested": false,
+                      "memberName": "Agree",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "1318:11:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$5",
+                        "typeString": "enum Investor.State"
+                      }
+                    },
+                    "src": "1300:29:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 120,
+                  "id": 126,
+                  "nodeType": "Return",
+                  "src": "1293:36:0"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 128,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "isAgreed",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 117,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 116,
+                  "name": "investor",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 128,
+                  "src": "1222:26:0",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                    "typeString": "struct Investor.Investor_"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 115,
+                    "name": "Investor_",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 14,
+                    "src": "1222:9:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                      "typeString": "struct Investor.Investor_"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1221:28:0"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 120,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 119,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 128,
+                  "src": "1277:4:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 118,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1277:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1276:6:0"
+            },
+            "scope": 169,
+            "src": "1204:132:0",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 141,
+              "nodeType": "Block",
+              "src": "1421:54:0",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "commonType": {
+                      "typeIdentifier": "t_enum$_State_$5",
+                      "typeString": "enum Investor.State"
+                    },
+                    "id": 139,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 135,
+                        "name": "investor",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 130,
+                        "src": "1438:8:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                          "typeString": "struct Investor.Investor_ storage pointer"
+                        }
+                      },
+                      "id": 136,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "state",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 13,
+                      "src": "1438:14:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$5",
+                        "typeString": "enum Investor.State"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "==",
+                    "rightExpression": {
+                      "argumentTypes": null,
+                      "expression": {
+                        "argumentTypes": null,
+                        "id": 137,
+                        "name": "State",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 5,
+                        "src": "1456:5:0",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_enum$_State_$5_$",
+                          "typeString": "type(enum Investor.State)"
+                        }
+                      },
+                      "id": 138,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "lValueRequested": false,
+                      "memberName": "Oppose",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "1456:12:0",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_State_$5",
+                        "typeString": "enum Investor.State"
+                      }
+                    },
+                    "src": "1438:30:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 134,
+                  "id": 140,
+                  "nodeType": "Return",
+                  "src": "1431:37:0"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 142,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": true,
+            "modifiers": [],
+            "name": "isOppose",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 131,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 130,
+                  "name": "investor",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 142,
+                  "src": "1360:26:0",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                    "typeString": "struct Investor.Investor_"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 129,
+                    "name": "Investor_",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 14,
+                    "src": "1360:9:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                      "typeString": "struct Investor.Investor_"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1359:28:0"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 134,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 133,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 142,
+                  "src": "1415:4:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 132,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1415:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1414:6:0"
+            },
+            "scope": 169,
+            "src": "1342:133:0",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 167,
+              "nodeType": "Block",
+              "src": "1544:140:0",
+              "statements": [
+                {
+                  "condition": {
+                    "argumentTypes": null,
+                    "id": 149,
+                    "name": "agree",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 146,
+                    "src": "1558:5:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "falseBody": {
+                    "id": 165,
+                    "nodeType": "Block",
+                    "src": "1624:54:0",
+                    "statements": [
+                      {
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 163,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftHandSide": {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 158,
+                              "name": "investor",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 144,
+                              "src": "1638:8:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                                "typeString": "struct Investor.Investor_ storage pointer"
+                              }
+                            },
+                            "id": 160,
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": true,
+                            "memberName": "state",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 13,
+                            "src": "1638:14:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_enum$_State_$5",
+                              "typeString": "enum Investor.State"
+                            }
+                          },
+                          "nodeType": "Assignment",
+                          "operator": "=",
+                          "rightHandSide": {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 161,
+                              "name": "State",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 5,
+                              "src": "1655:5:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_type$_t_enum$_State_$5_$",
+                                "typeString": "type(enum Investor.State)"
+                              }
+                            },
+                            "id": 162,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "lValueRequested": false,
+                            "memberName": "Oppose",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": null,
+                            "src": "1655:12:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_enum$_State_$5",
+                              "typeString": "enum Investor.State"
+                            }
+                          },
+                          "src": "1638:29:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_enum$_State_$5",
+                            "typeString": "enum Investor.State"
+                          }
+                        },
+                        "id": 164,
+                        "nodeType": "ExpressionStatement",
+                        "src": "1638:29:0"
+                      }
+                    ]
+                  },
+                  "id": 166,
+                  "nodeType": "IfStatement",
+                  "src": "1554:124:0",
+                  "trueBody": {
+                    "id": 157,
+                    "nodeType": "Block",
+                    "src": "1565:53:0",
+                    "statements": [
+                      {
+                        "expression": {
+                          "argumentTypes": null,
+                          "id": 155,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftHandSide": {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 150,
+                              "name": "investor",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 144,
+                              "src": "1579:8:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                                "typeString": "struct Investor.Investor_ storage pointer"
+                              }
+                            },
+                            "id": 152,
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": true,
+                            "memberName": "state",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": 13,
+                            "src": "1579:14:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_enum$_State_$5",
+                              "typeString": "enum Investor.State"
+                            }
+                          },
+                          "nodeType": "Assignment",
+                          "operator": "=",
+                          "rightHandSide": {
+                            "argumentTypes": null,
+                            "expression": {
+                              "argumentTypes": null,
+                              "id": 153,
+                              "name": "State",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 5,
+                              "src": "1596:5:0",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_type$_t_enum$_State_$5_$",
+                                "typeString": "type(enum Investor.State)"
+                              }
+                            },
+                            "id": 154,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "lValueRequested": false,
+                            "memberName": "Agree",
+                            "nodeType": "MemberAccess",
+                            "referencedDeclaration": null,
+                            "src": "1596:11:0",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_enum$_State_$5",
+                              "typeString": "enum Investor.State"
+                            }
+                          },
+                          "src": "1579:28:0",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_enum$_State_$5",
+                            "typeString": "enum Investor.State"
+                          }
+                        },
+                        "id": 156,
+                        "nodeType": "ExpressionStatement",
+                        "src": "1579:28:0"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 168,
+            "implemented": true,
+            "isConstructor": false,
+            "isDeclaredConst": false,
+            "modifiers": [],
+            "name": "vote",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 147,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 144,
+                  "name": "investor",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 168,
+                  "src": "1495:26:0",
+                  "stateVariable": false,
+                  "storageLocation": "storage",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                    "typeString": "struct Investor.Investor_"
+                  },
+                  "typeName": {
+                    "contractScope": null,
+                    "id": 143,
+                    "name": "Investor_",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 14,
+                    "src": "1495:9:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Investor__$14_storage_ptr",
+                      "typeString": "struct Investor.Investor_"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 146,
+                  "name": "agree",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 168,
+                  "src": "1523:10:0",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 145,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1523:4:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1494:40:0"
+            },
+            "payable": false,
+            "returnParameters": {
+              "id": 148,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1544:0:0"
+            },
+            "scope": 169,
+            "src": "1481:203:0",
             "stateMutability": "nonpayable",
             "superFunction": null,
             "visibility": "internal"
           }
         ],
-        "scope": 73,
-        "src": "26:821:0"
+        "scope": 170,
+        "src": "26:1660:0"
       }
     ],
-    "src": "0:848:0"
+    "src": "0:1687:0"
   },
   "compiler": {
     "name": "solc",
@@ -1731,5 +3965,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-09-09T14:15:03.390Z"
+  "updatedAt": "2018-09-09T14:41:13.284Z"
 }

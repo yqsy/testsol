@@ -17,7 +17,8 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
     uint256 public _currentStageIdx;     // 当前期数Idx
 
     struct Stage {
-        uint256 changeRate;              // 本期平台币兑token汇率 (每期可不固定)
+        uint256 changeRate;              // 本期平台币兑token汇率 (每期可不固定), 例如: 1:1000,一个兑换1000个
+        uint256 targetAgreeRate;         // 需要达成的agree比例, 例如:0-100
         StageTime.StageTime_ stageTime;  // 本期时间段
         Investor.Investor_[] investors;  // 本期投资者数据
     }
@@ -35,7 +36,7 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
         }
     }
 
-    // 投资者在众筹期投放ABS
+    // 众筹期: 投资者投放ABS
     function Invest() public payable {
         require(StageTime.isInSale(_stages[_currentStageIdx].stageTime, now));
 
@@ -53,17 +54,13 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
             curInvestor.investABSNum = curInvestor.investABSNum.add(msg.value);
             curInvestor.ownerTokenNum = curInvestor.ownerTokenNum.add(newTokenNum);
         } else {
-            Investor.Investor_ memory investor;
-            investor.id = msg.sender;
-            investor.investABSNum = msg.value;
-            investor.ownerTokenNum = newTokenNum;
-            investor.voted = false;
+            Investor.Investor_ memory investor = Investor.newInvestor(msg.sender, msg.value, newTokenNum);
             curStage.investors.push(investor);
         }
     }
 
-    // 投票
-    function Vote(bool isAgree) public {
+    // 投票期: 投资者投票 0=不同意,其他=同意
+    function Vote(uint256 isAgree) public {
         require(StageTime.isInVote(_stages[_currentStageIdx].stageTime, now));
 
         // 必须参加过众筹
@@ -74,24 +71,35 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
         Investor.Investor_ storage curInvestor = curStage.investors[idx];
 
         // 必须没有投过票
-        require(!curInvestor.voted);
-        curInvestor.voted = true;
+        require(!Investor.isVoted(curInvestor));
 
-
+        if (isAgree == 0) {
+            Investor.vote(curInvestor, false);
+        } else {
+            Investor.vote(curInvestor, true);
+        }
     }
 
-    // 投资者领取阶段众筹的所有应得的token
+    // 结束后: 参照投票结果(成功),投资者领取阶段众筹的所有应得的token
     function WithdrawToken() public {
+        require(StageTime.isEnd(_stages[_currentStageIdx].stageTime, now));
+
+        // 只能是投资者
+        require(msg.sender != _owner);
 
     }
 
-    // 项目方领取阶段众筹的所有应得的ABS
+    // 结束后:参照投票结果(成功),项目方领取阶段众筹的所有应得的ABS
     function WithdrawABS() public {
+        require(StageTime.isEnd(_stages[_currentStageIdx].stageTime, now));
+
+        // 只能是项目方
+        require(msg.sender == _owner);
 
     }
 
     // ABS -> token (汇率相转)
-    function calcNeedToken(uint256 ABSNum, uint256 changeRate) private
+    function calcNeedToken(uint256 ABSNum, uint256 changeRate) private view
     returns (uint256){
         return ABSNum.mul(changeRate);
     }

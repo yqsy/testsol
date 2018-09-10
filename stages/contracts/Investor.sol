@@ -10,7 +10,7 @@ library Investor {
     struct Investor_ {
         address id;             // 投资者地址
         uint256 investABSNum;   // 投资者投资ABS数量
-        uint256 ownerTokenNum;  // 项目方释放Token数量
+        uint256 itemTokenNum;   // 项目方释放Token数量
         State state;            // 状态
     }
 
@@ -25,13 +25,19 @@ library Investor {
         return (false, 0);
     }
 
-    // 创建新的投资者
-    function newInvestor(address _id, uint256 _investABSNum, uint256 _ownerTokenNum) internal pure
+    // 追加投资
+    function appendInvestor(Investor_ storage investor, uint256 investABSNum, uint256 itemTokenNum) {
+        investor.investABSNum = investor.investABSNum.add(msg.value);
+        investor.itemTokenNum = investor.itemTokenNum.add(rateTokenNum);
+    }
+
+    // 创建新投资者
+    function newInvestor(address _id, uint256 _investABSNum, uint256 _itemTokenNum) internal pure
     returns (Investor_) {
         Investor.Investor_ memory investor;
         investor.id = _id;
         investor.investABSNum = _investABSNum;
-        investor.ownerTokenNum = _ownerTokenNum;
+        investor.itemTokenNum = _itemTokenNum;
 
         investor.state = State.UnVoted;
         return investor;
@@ -73,4 +79,22 @@ library Investor {
         uint256 agreeRate = agreeVotes.mul(10000).div(investors.length);
         return agreeRate >= targetAgreeRate.mul(100);
     }
+
+    // (投票成功): 投资者领取众筹阶段的所有应得到的token,并减去合同记录
+    function investorWithdrawToken(Investor_[] storage investors, function (address/*id*/, uint256/*tokenNum*/) addInvestorBalance) internal  {
+        for (uint256 i = 0; i < investors.length; i++) {
+            addInvestorBalance(investors[i].id, investors[i].itemTokenNum);
+            investors[i].itemTokenNum = investors[i].itemTokenNum.sub(investors[i].itemTokenNum);
+        }
+    }
+
+    // (投票成功): 项目方领取众筹阶段的所有应得的ABS,并减去合同记录
+    function itemWithdrawABS(Investor_[] storage investors, function (uint256/*ABSNum*/) addItemABS) internal  {
+        for (uint256 i = 0; i < investors.length; i++) {
+            addItemABS(investors[i].investABSNum);
+            investors[i].investABSNum = investors[i].investABSNum.sub(investors[i].investABSNum);
+        }
+    }
+
+
 }

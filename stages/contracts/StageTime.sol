@@ -39,7 +39,7 @@ library StageTime {
     }
 
     // 本期是否结束
-    function isEnd(StageTime_ storage stageTime, uint256 curTime) internel view
+    function isEnd(StageTime_ storage stageTime, uint256 curTime) internal view
     returns (bool) {
         if (isInSale(stageTime, curTime) || isInLock(stageTime, curTime) || isInVote(stageTime, curTime)) {
             return false;

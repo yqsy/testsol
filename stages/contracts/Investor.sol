@@ -26,9 +26,9 @@ library Investor {
     }
 
     // 追加投资
-    function appendInvestor(Investor_ storage investor, uint256 investABSNum, uint256 itemTokenNum) {
-        investor.investABSNum = investor.investABSNum.add(msg.value);
-        investor.itemTokenNum = investor.itemTokenNum.add(rateTokenNum);
+    function appendInvestor(Investor_ storage investor, uint256 investABSNum, uint256 itemTokenNum) internal {
+        investor.investABSNum = investor.investABSNum.add(investABSNum);
+        investor.itemTokenNum = investor.itemTokenNum.add(itemTokenNum);
     }
 
     // 创建新投资者
@@ -84,7 +84,7 @@ library Investor {
     function investorWithdrawToken(Investor_[] storage investors, function (address/*id*/, uint256/*tokenNum*/) addInvestorBalance) internal  {
         for (uint256 i = 0; i < investors.length; i++) {
             addInvestorBalance(investors[i].id, investors[i].itemTokenNum);
-            investors[i].itemTokenNum = investors[i].itemTokenNum.sub(investors[i].itemTokenNum);
+            investors[i].itemTokenNum = 0;
         }
     }
 
@@ -92,9 +92,23 @@ library Investor {
     function itemWithdrawABS(Investor_[] storage investors, function (uint256/*ABSNum*/) addItemABS) internal  {
         for (uint256 i = 0; i < investors.length; i++) {
             addItemABS(investors[i].investABSNum);
-            investors[i].investABSNum = investors[i].investABSNum.sub(investors[i].investABSNum);
+            investors[i].investABSNum = 0;
         }
     }
 
+    // (投票失败): 投资者领取众筹阶段付出的ABS,并减去合同记录
+    function investorWithdrawABS(Investor_[] storage investors, function (uint256/*ABSNum*/) addInvestorABS) internal {
+        for (uint256 i = 0; i < investors.length; i++) {
+            addInvestorABS(investors[i].investABSNum);
+            investors[i].investABSNum = 0;
+        }
+    }
 
+    // (投票失败): 项目方领取众筹阶段付出的token,并减去合同记录
+    function itemWithdrawToken(Investor_[] storage investors, function (uint256/*tokenNum*/) addItemBalance) internal {
+        for (uint256 i = 0; i < investors.length; i++) {
+            addItemBalance(investors[i].itemTokenNum);
+            investors[i].itemTokenNum = 0;
+        }
+    }
 }

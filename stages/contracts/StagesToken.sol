@@ -23,6 +23,26 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
         Investor.Investor_[] investors;  // 本期投资者数据
     }
 
+    modifier onlyInvestor() {
+        require(msg.sender != _item);
+        _;
+    }
+
+    modifier onlyItem() {
+        require(msg.sender == _item);
+        _;
+    }
+
+    modifier onlyInSaleTime() {
+        require(StageTime.isInSale(_stages[_currentStageIdx].stageTime, now));
+        _;
+    }
+
+    modifier onlyInVoteTime() {
+        require(StageTime.isInVote(_stages[_currentStageIdx].stageTime, now));
+        _;
+    }
+
     // 切换到下一个众筹期
     function SwitchStage() public {
         uint256 i = _currentStageIdx;
@@ -43,7 +63,8 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
 
         // 1. A. 项目方token减少 B. 合同token增加
         uint256 rateTokenNum = calcRateToken(msg.value, curStage.changeRate);
-        minBalance(_item, rateTokenNum);
+        require(rateTokenNum <= _balances[_item]);
+        _balances[_item] = _balances[_item].sub(rateTokenNum);
 
         // 2. A. 投资者ABS减少 B. 合同ABS增加
         if (exist) {
@@ -76,32 +97,39 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
     }
 
     // 投资者: (投票成功) 获取token
-    function InvestorWithdrawToken() public onlyInvestor onlyInEndTime {
-        Stage storage curStage = _stages[_currentStageIdx];
-        require(Investor.isVoteAgreeAchieveTarget(curStage.investors, curStage.targetAgreeRate));
-        Investor.investorWithdrawToken(curStage.investors, addBalance);
+    function InvestorWithdrawToken() public onlyInvestor {
+        for (uint256 i = 0; i < _stages.length; i++) {
+            if (Investor.isVoteAgreeAchieveTarget(_stages[i].investors, _stages[i].targetAgreeRate)) {
+                Investor.investorWithdrawToken(_stages[i].investors, addSendersToken);
+            }
+        }
     }
 
     // 投资者: (投票失败) 获取ABS
-    function InvestorWithdrawAbs() public onlyInvestor onlyInEndTime {
-        onlyInvestor();
-        Stage storage curStage = _stages[_currentStageIdx];
-        require(!Investor.isVoteAgreeAchieveTarget(curStage.investors, curStage.targetAgreeRate));
-        Investor.investorWithdrawABS(curStage.investors, addSendersABS);
+    function InvestorWithdrawAbs() public onlyInvestor {
+        for (uint256 i = 0; i < _stages.length; i++) {
+            if (!Investor.isVoteAgreeAchieveTarget(_stages[i].investors, _stages[i].targetAgreeRate)) {
+                Investor.investorWithdrawABS(_stages[i].investors, addSendersABS);
+            }
+        }
     }
 
     // 项目方: (投票成功) 获取ABS
-    function ItemWithdrawABS() public onlyItem onlyInEndTime {
-        Stage storage curStage = _stages[_currentStageIdx];
-        require(Investor.isVoteAgreeAchieveTarget(curStage.investors, curStage.targetAgreeRate));
-        Investor.itemWithdrawABS(curStage.investors, addSendersABS);
+    function ItemWithdrawABS() public onlyItem {
+        for (uint256 i = 0; i < _stages.length; i++) {
+            if (Investor.isVoteAgreeAchieveTarget(_stages[i].investors, _stages[i].targetAgreeRate)) {
+                Investor.itemWithdrawABS(_stages[i].investors, addSendersABS);
+            }
+        }
     }
 
     // 项目方: (投票失败) 获取token
-    function ItemWithdrawToken() public onlyItem onlyInEndTime {
-        Stage storage curStage = _stages[_currentStageIdx];
-        require(!Investor.isVoteAgreeAchieveTarget(curStage.investors, curStage.targetAgreeRate));
-        Investor.itemWithdrawToken(curStage.investors, addSendersToken);
+    function ItemWithdrawToken() public onlyItem {
+        for (uint256 i = 0; i < _stages.length; i++) {
+            if (!Investor.isVoteAgreeAchieveTarget(_stages[i].investors, _stages[i].targetAgreeRate)) {
+                Investor.itemWithdrawToken(_stages[i].investors, addSendersToken);
+            }
+        }
     }
 
     // ABS -> token (汇率相转)
@@ -110,48 +138,12 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
         return ABSNum.mul(changeRate);
     }
 
-    modifier onlyInvestor() {
-        require(msg.sender != _item);
-        _;
-    }
-
-    modifier onlyItem() {
-        require(msg.sender == _item);
-        _;
-    }
-
-    modifier onlyInSaleTime() {
-        require(StageTime.isInSale(_stages[_currentStageIdx].stageTime, now));
-        _;
-    }
-
-    modifier onlyInVoteTime() {
-        require(StageTime.isInVote(_stages[_currentStageIdx].stageTime, now));
-        _;
-    }
-
-    modifier onlyInEndTime() {
-        require(StageTime.isEnd(_stages[_currentStageIdx].stageTime, now));
-        _;
-    }
-
-    // 指定id减少token
-    function minBalance(address id, uint256 tokenNum) private {
-        require(tokenNum <= _balances[id]);
-        _balances[id] = _balances[id].sub(tokenNum);
-    }
-
-    // 指定id增加token
-    function addBalance(address id, uint256 tokenNum) private {
-        _balances[id] = _balances[id].add(tokenNum);
-    }
-
-    // 增加发送者的token
+    // 增加发送者token
     function addSendersToken(uint256 tokenNum) private {
-        addBalance(msg.sender, tokenNum);
+        _balances[msg.sender] = _balances[msg.sender].add(tokenNum);
     }
 
-    // 增加发送者的ABS
+    // 增加发送者ABS
     function addSendersABS(uint256 ABSNum) private {
         msg.sender.transfer(ABSNum);
     }

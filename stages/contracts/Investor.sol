@@ -78,33 +78,37 @@ library Investor {
     }
 
     // 投资者: (投票成功) 获取token
-    function investorWithdrawToken(Investor_[] storage investors, function (address/*id*/, uint256/*tokenNum*/) addInvestorBalance) internal  {
+    function investorWithdrawToken(Investor_[] storage investors, function (uint256) addSendersToken) internal {
         for (uint256 i = 0; i < investors.length; i++) {
-            addInvestorBalance(investors[i].id, investors[i].itemTokenNum);
-            investors[i].itemTokenNum = 0;
+            if (investors[i].id == msg.sender) {
+                addSendersToken(investors[i].itemTokenNum);
+                investors[i].itemTokenNum = 0;
+            }
         }
     }
 
     // 投资者: (投票失败) 获取ABS
-    function investorWithdrawABS(Investor_[] storage investors, function (uint256/*ABSNum*/) addInvestorABS) internal {
+    function investorWithdrawABS(Investor_[] storage investors, function (uint256) addSendersABS) internal {
         for (uint256 i = 0; i < investors.length; i++) {
-            addInvestorABS(investors[i].investABSNum);
-            investors[i].investABSNum = 0;
+            if (investors[i].id == msg.sender) {
+                addSendersABS(investors[i].investABSNum);
+                investors[i].investABSNum = 0;
+            }
         }
     }
 
     // 项目方: (投票成功) 获取ABS
-    function itemWithdrawABS(Investor_[] storage investors, function (uint256/*ABSNum*/) addItemABS) internal  {
+    function itemWithdrawABS(Investor_[] storage investors, function (uint256) addSendersABS) internal {
         for (uint256 i = 0; i < investors.length; i++) {
-            addItemABS(investors[i].investABSNum);
+            addSendersABS(investors[i].investABSNum);
             investors[i].investABSNum = 0;
         }
     }
 
     // 项目方: (投票失败) 获取token
-    function itemWithdrawToken(Investor_[] storage investors, function (uint256/*tokenNum*/) addItemBalance) internal {
+    function itemWithdrawToken(Investor_[] storage investors, function (uint256) addSendersToken) internal {
         for (uint256 i = 0; i < investors.length; i++) {
-            addItemBalance(investors[i].itemTokenNum);
+            addSendersToken(investors[i].itemTokenNum);
             investors[i].itemTokenNum = 0;
         }
     }

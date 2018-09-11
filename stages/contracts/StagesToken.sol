@@ -43,6 +43,30 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
         _;
     }
 
+    // 增加众筹期
+    function AppendStage(
+        uint256 saleBeginTime, uint256 saleEndTime,
+        uint256 lockBeginTime, uint256 lockEndTime,
+        uint256 voteBeginTime, uint256 voteEndTime,
+        uint256 changeRate, uint256 targetAgreeRate) public {
+
+        Stage memory stage;
+        stage.changeRate = changeRate;
+        stage.targetAgreeRate = targetAgreeRate;
+
+        StageTime.StageTime_ memory stageTime;
+        stageTime.saleBeginTime = saleBeginTime;
+        stageTime.saleEndTime = saleEndTime;
+        stageTime.lockBeginTime = lockBeginTime;
+        stageTime.lockEndTime = lockEndTime;
+        stageTime.voteBeginTime = voteBeginTime;
+        stageTime.voteEndTime = voteEndTime;
+
+        stage.stageTime = stageTime;
+
+        // _stages.push(stage);
+    }
+
     // 切换到下一个众筹期
     function SwitchStage() public {
         uint256 i = _currentStageIdx;
@@ -163,7 +187,6 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
         _balances[_item] = _totalSupply;
 
         // 期数配置
-        // _stages
         _currentStageIdx = 0;
     }
 }

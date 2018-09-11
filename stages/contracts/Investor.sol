@@ -78,9 +78,9 @@ library Investor {
     }
 
     // 投资者: (投票成功) 获取token
-    function investorWithdrawToken(Investor_[] storage investors, function (uint256) addSendersToken) internal {
+    function investorWithdrawToken(Investor_[] storage investors, address id, function (uint256) addSendersToken) internal {
         for (uint256 i = 0; i < investors.length; i++) {
-            if (investors[i].id == msg.sender) {
+            if (investors[i].id == id) {
                 addSendersToken(investors[i].itemTokenNum);
                 investors[i].itemTokenNum = 0;
             }
@@ -88,9 +88,9 @@ library Investor {
     }
 
     // 投资者: (投票失败) 获取ABS
-    function investorWithdrawABS(Investor_[] storage investors, function (uint256) addSendersABS) internal {
+    function investorWithdrawABS(Investor_[] storage investors, address id, function (uint256) addSendersABS) internal {
         for (uint256 i = 0; i < investors.length; i++) {
-            if (investors[i].id == msg.sender) {
+            if (investors[i].id == id) {
                 addSendersABS(investors[i].investABSNum);
                 investors[i].investABSNum = 0;
             }

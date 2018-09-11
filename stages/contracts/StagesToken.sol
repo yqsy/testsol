@@ -100,7 +100,7 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
     function InvestorWithdrawToken() public onlyInvestor {
         for (uint256 i = 0; i < _stages.length; i++) {
             if (Investor.isVoteAgreeAchieveTarget(_stages[i].investors, _stages[i].targetAgreeRate)) {
-                Investor.investorWithdrawToken(_stages[i].investors, addSendersToken);
+                Investor.investorWithdrawToken(_stages[i].investors, msg.sender, addSendersToken);
             }
         }
     }
@@ -109,7 +109,7 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
     function InvestorWithdrawAbs() public onlyInvestor {
         for (uint256 i = 0; i < _stages.length; i++) {
             if (!Investor.isVoteAgreeAchieveTarget(_stages[i].investors, _stages[i].targetAgreeRate)) {
-                Investor.investorWithdrawABS(_stages[i].investors, addSendersABS);
+                Investor.investorWithdrawABS(_stages[i].investors, msg.sender, addSendersABS);
             }
         }
     }
@@ -159,8 +159,11 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
     ERC20()
     public {
         _totalSupply = totalSupply * (10 ** uint256(decimals));
-
         _item = msg.sender;
         _balances[_item] = _totalSupply;
+
+        // 期数配置
+        // _stages
+        _currentStageIdx = 0;
     }
 }

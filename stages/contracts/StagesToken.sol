@@ -50,21 +50,21 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
         uint256 voteBeginTime, uint256 voteEndTime,
         uint256 changeRate, uint256 targetAgreeRate) public {
 
-        Stage memory stage;
-        stage.changeRate = changeRate;
-        stage.targetAgreeRate = targetAgreeRate;
+        uint256 nextStageIdx = 0;
+        if (_stages.length == 0) {
+            nextStageIdx = 0;
+        } else {
+            nextStageIdx = _stages.length++;
+        }
 
-        StageTime.StageTime_ memory stageTime;
-        stageTime.saleBeginTime = saleBeginTime;
-        stageTime.saleEndTime = saleEndTime;
-        stageTime.lockBeginTime = lockBeginTime;
-        stageTime.lockEndTime = lockEndTime;
-        stageTime.voteBeginTime = voteBeginTime;
-        stageTime.voteEndTime = voteEndTime;
-
-        stage.stageTime = stageTime;
-
-        // _stages.push(stage);
+        _stages[nextStageIdx].changeRate = changeRate;
+        _stages[nextStageIdx].targetAgreeRate = targetAgreeRate;
+        _stages[nextStageIdx].stageTime.saleBeginTime = saleBeginTime;
+        _stages[nextStageIdx].stageTime.saleEndTime = saleEndTime;
+        _stages[nextStageIdx].stageTime.lockBeginTime = lockBeginTime;
+        _stages[nextStageIdx].stageTime.lockEndTime = lockEndTime;
+        _stages[nextStageIdx].stageTime.voteBeginTime = voteBeginTime;
+        _stages[nextStageIdx].stageTime.voteEndTime = voteEndTime;
     }
 
     // 切换到下一个众筹期

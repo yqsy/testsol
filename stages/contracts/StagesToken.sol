@@ -11,15 +11,15 @@ import "./Investor.sol";
 contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
     using SafeMath for uint;
 
-    address public _item;                // 项目方地址(代币发行者)
+    address private _item;                 // 项目方地址(代币发行者)
 
-    Stage[] public _stages;              // 所有期数
-    uint256 public _currentStageIdx;     // 当前期数Idx
+    Stage[] private _stages;               // 所有期数
+    uint256 private _currentStageIdx;      // 当前期数Idx
 
     struct Stage {
+        StageTime.StageTime_ stageTime;  // 本期时间段
         uint256 changeRate;              // 本期平台币兑token汇率 (每期可不固定), 例如: 1:1000,一个ABS兑换1000个token
         uint256 targetAgreeRate;         // 本期需要达成的agree比例, 例如:0-100
-        StageTime.StageTime_ stageTime;  // 本期时间段
         Investor.Investor_[] investors;  // 本期投资者数据
     }
 
@@ -43,6 +43,46 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
         _;
     }
 
+    // 获取项目方地址
+    function Item() public view
+    returns (address){
+        return _item;
+    }
+
+    // 获取项目方token数量
+    function ItemBalance() public view
+    returns (uint256) {
+        return balanceOf(_item);
+    }
+
+    // 获取期数
+    function StagesLen() public view
+    returns (uint256){
+        return _stages.length;
+    }
+
+    // 获取当前期数Idx
+    function CurrentStageIdx() public view
+    returns (uint256) {
+        return _currentStageIdx;
+    }
+
+    // 获取指定期的数据
+//    function GetStages(uint256 idx) public view
+//    returns (string) {
+//
+//
+//        require(idx < _stages.length);
+//        return (_stages[idx].stageTime.saleBeginTime,
+//        _stages[idx].stageTime.saleEndTime,
+//        _stages[idx].stageTime.lockBeginTime,
+//        _stages[idx].stageTime.lockEndTime,
+//        _stages[idx].stageTime.voteBeginTime,
+//        _stages[idx].stageTime.voteEndTime,
+//        _stages[idx].changeRate,
+//        _stages[idx].targetAgreeRate);
+//    }
+
     // 增加众筹期
     function AppendStage(
         uint256 saleBeginTime, uint256 saleEndTime,
@@ -50,12 +90,9 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
         uint256 voteBeginTime, uint256 voteEndTime,
         uint256 changeRate, uint256 targetAgreeRate) public {
 
-        uint256 nextStageIdx = 0;
-        if (_stages.length == 0) {
-            nextStageIdx = 0;
-        } else {
-            nextStageIdx = _stages.length++;
-        }
+
+        uint256 nextStageIdx = _stages.length;
+        _stages.length++;
 
         _stages[nextStageIdx].changeRate = changeRate;
         _stages[nextStageIdx].targetAgreeRate = targetAgreeRate;

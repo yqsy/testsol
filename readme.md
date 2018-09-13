@@ -123,10 +123,11 @@ function balanceOf(address _owner) public view returns (uint256 balance) {
 # 6. 猜数字
 
 * https://github.com/merlox/casino-ethereum/blob/master/contracts/Casino.sol
+* https://medium.com/@merunasgrincalaitis/the-ultimate-end-to-end-tutorial-to-create-and-deploy-a-fully-descentralized-dapp-in-ethereum-18f0cf6d7e0e
+* https://github.com/eoshackathon/ipfs_development_tutorial/blob/master/doc/casino-ethereum.md
 
 <a id="markdown-7-更复杂erc20" name="7-更复杂erc20"></a>
 # 7. 更复杂erc20
-
 
 * https://github.com/eoshackathon/multi-stage-ico
 
@@ -140,3 +141,4 @@ git clone https://github.com/eoshackathon/multi-stage-ico
 
 * 修改_totalSupply为internal
 * 修改_balances为internal
+

@@ -4,6 +4,8 @@ var StagesTokenContract;
 
 var stagesStatic = 0;
 
+var contractAddress = '0x9d5d8f45d9224234b3e5863169dbfb9a1bdc35b1';
+
 function init() {
     initWeb3();
 
@@ -11,16 +13,18 @@ function init() {
 }
 
 function initWeb3() {
-    //if (typeof web3 !== 'undefined' && typeof web3.currentProvider !== 'undefined') {
-    //web3Provider = web3.currentProvider;
-    //web3 = new Web3(web3Provider);
-    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
 
-    //} else {
-    //    console.error('No web3 provider found. Please install Metamask on your browser.');
-    //     alert('No web3 provider found. Please install Metamask on your browser.');
-    //}
-    web3.eth.defaultAccount = web3.eth.accounts[1];
+    if (typeof web3 !== 'undefined' && typeof web3.currentProvider !== 'undefined') {
+        web3Provider = web3.currentProvider;
+        web3 = new Web3(web3Provider);
+    } else {
+        console.error('No web3 provider found. Please install Metamask on your browser.');
+        alert('No web3 provider found. Please install Metamask on your browser.');
+    }
+
+
+    // web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
+    // web3.eth.defaultAccount = web3.eth.accounts[1];
 
     //console.log(web3.eth.accounts[0]);
     initWrestlingContract();
@@ -281,12 +285,9 @@ function flushBasicData() {
         return instance.CurrentStageIdx();
     }).then(function (result) {
         document.getElementById("CurrentStageIdx").innerHTML = result.toString();
-
-        alert("刷新成功");
     }).catch(e => {
         alert(e);
     });
-
 
 }
 
@@ -338,7 +339,7 @@ function appendStage() {
             voteBeginTimeBig,
             voteEndTimeBig,
             changeRateBig,
-            targetAgreeRateBig, {gas: 3141592}).then(function (result) {
+            targetAgreeRateBig, {gas: 3141592, from:  web3.eth.defaultAccount}).then(function (result) {
             alert("添加成功");
         }).catch(e => {
             alert(e);
@@ -383,6 +384,7 @@ function Vote() {
 
         let voteValueBig = web3.toBigNumber(voteValue);
         instance.Vote(voteValueBig, {
+            from:  web3.eth.defaultAccount,
             gas: 3141592
         }).then(function (result) {
             alert("投票成功");
@@ -394,7 +396,7 @@ function Vote() {
 
 function switchStage() {
     StagesTokenContract.deployed().then(function (instance) {
-        instance.SwitchStage({gas: 3141592}).then(function(result){
+        instance.SwitchStage({gas: 3141592,  from: web3.eth.defaultAccount}).then(function(result){
             alert("切换成功");
         }).catch(e => {
             alert(e);

@@ -187,14 +187,14 @@ function queryStages() {
                             let state_ = "";
                             if (eles[2] === '1') {
                                 state_ = "没有投票"
-                            } else if( eles[2] === '2') {
+                            } else if (eles[2] === '2') {
                                 state_ = "同意"
                             } else if (eles[2] === '3') {
                                 state_ = "反对"
                             }
 
                             newP = document.createElement("p");
-                            newP.textContent = "投资者地址:{0} : ABS数量{1} token数量:{2} 状态:{3}".format(
+                            newP.textContent = "投资者地址:{0} : 投资剩余ABS数量{1} 应得剩余token数量:{2} 状态:{3}".format(
                                 result[0], eles[0], eles[1], state_
                             );
                             stagesInfoDiv.appendChild(newP);
@@ -281,9 +281,13 @@ function flushBasicData() {
         return instance.CurrentStageIdx();
     }).then(function (result) {
         document.getElementById("CurrentStageIdx").innerHTML = result.toString();
+
+        alert("刷新成功");
     }).catch(e => {
         alert(e);
     });
+
+
 }
 
 function appendStage() {
@@ -334,16 +338,25 @@ function appendStage() {
             voteBeginTimeBig,
             voteEndTimeBig,
             changeRateBig,
-            targetAgreeRateBig, {gas: 3141592}).catch(e => {
+            targetAgreeRateBig, {gas: 3141592}).then(function (result) {
+            alert("添加成功");
+        }).catch(e => {
             alert(e);
         });
     });
 
     flushBasicData();
+
+
 }
 
 function Invest() {
     let ABSNum = document.getElementById("InvestorABSNum").value;
+
+    if (ABSNum === "") {
+        alert("投资ABS数量为空");
+        return;
+    }
 
     StagesTokenContract.deployed().then(function (instance) {
 
@@ -353,10 +366,13 @@ function Invest() {
             from: web3.eth.defaultAccount,
             gas: 3141592,
             value: web3.toWei(ABSNumBig, "ether")
+        }).then(function (result) {
+            alert("投资成功");
         }).catch(e => {
             alert(e);
         });
     });
+
 }
 
 
@@ -368,6 +384,8 @@ function Vote() {
         let voteValueBig = web3.toBigNumber(voteValue);
         instance.Vote(voteValueBig, {
             gas: 3141592
+        }).then(function (result) {
+            alert("投票成功");
         }).catch(e => {
             alert(e);
         });
@@ -376,7 +394,9 @@ function Vote() {
 
 function switchStage() {
     StagesTokenContract.deployed().then(function (instance) {
-        instance.SwitchStage({gas: 3141592}).catch(e => {
+        instance.SwitchStage({gas: 3141592}).then(function(result){
+            alert("切换成功");
+        }).catch(e => {
             alert(e);
         });
     });
@@ -384,33 +404,45 @@ function switchStage() {
 
 function InvestorWithdrawToken() {
     StagesTokenContract.deployed().then(function (instance) {
-        instance.InvestorWithdrawToken({gas: 3141592, from: web3.eth.defaultAccount}).catch(e => {
+        instance.InvestorWithdrawToken({gas: 3141592, from: web3.eth.defaultAccount}).then(function (reslt) {
+            alert("提取成功");
+        }).catch(e => {
             alert(e);
         });
+
     });
 }
 
 function InvestorWithdrawAbs() {
     StagesTokenContract.deployed().then(function (instance) {
-        instance.InvestorWithdrawAbs({gas: 3141592, from: web3.eth.defaultAccount}).catch(e => {
+        instance.InvestorWithdrawAbs({gas: 3141592, from: web3.eth.defaultAccount}).then(function (reslt) {
+            alert("提取成功");
+        }).catch(e => {
             alert(e);
         });
+
     });
 }
 
 function ItemWithdrawABS() {
     StagesTokenContract.deployed().then(function (instance) {
-        instance.ItemWithdrawABS({gas: 3141592, from: web3.eth.defaultAccount}).catch(e => {
+        instance.ItemWithdrawABS({gas: 3141592, from: web3.eth.defaultAccount}).then(function (reslt) {
+            alert("提取成功");
+        }).catch(e => {
             alert(e);
         });
+
     });
 }
 
 function ItemWithdrawToken() {
     StagesTokenContract.deployed().then(function (instance) {
-        instance.ItemWithdrawToken({gas: 3141592, from: web3.eth.defaultAccount}).catch(e => {
+        instance.ItemWithdrawToken({gas: 3141592, from: web3.eth.defaultAccount}).then(function (reslt) {
+            alert("提取成功");
+        }).catch(e => {
             alert(e);
         });
+
     });
 }
 

@@ -7,6 +7,7 @@ import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 
 import "./StageTime.sol";
 import "./Investor.sol";
+import "./StringTools.sol";
 
 contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
     using SafeMath for uint;
@@ -24,22 +25,22 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
     }
 
     modifier onlyInvestor() {
-        require(msg.sender != _item);
+        require(msg.sender != _item, "only investor");
         _;
     }
 
     modifier onlyItem() {
-        require(msg.sender == _item);
+        require(msg.sender == _item, "only item");
         _;
     }
 
     modifier onlyInSaleTime() {
-        require(StageTime.isInSale(_stages[_currentStageIdx].stageTime, now));
+        require(StageTime.isInSale(_stages[_currentStageIdx].stageTime, now), "only in sale time");
         _;
     }
 
     modifier onlyInVoteTime() {
-        require(StageTime.isInVote(_stages[_currentStageIdx].stageTime, now));
+        require(StageTime.isInVote(_stages[_currentStageIdx].stageTime, now), "only in vote time");
         _;
     }
 
@@ -68,20 +69,51 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
     }
 
     // 获取指定期的数据
-//    function GetStages(uint256 idx) public view
-//    returns (string) {
-//
-//
-//        require(idx < _stages.length);
-//        return (_stages[idx].stageTime.saleBeginTime,
-//        _stages[idx].stageTime.saleEndTime,
-//        _stages[idx].stageTime.lockBeginTime,
-//        _stages[idx].stageTime.lockEndTime,
-//        _stages[idx].stageTime.voteBeginTime,
-//        _stages[idx].stageTime.voteEndTime,
-//        _stages[idx].changeRate,
-//        _stages[idx].targetAgreeRate);
-//    }
+    function GetStages(uint256 idx) public view
+    returns (string) {
+        require(idx < _stages.length, "index out of range");
+
+        string memory str = "";
+        str = StringTools.appendUintToString(str, _stages[idx].stageTime.saleBeginTime);
+        str = StringTools.concat(str, "|");
+        str = StringTools.appendUintToString(str, _stages[idx].stageTime.saleEndTime);
+        str = StringTools.concat(str, "|");
+        str = StringTools.appendUintToString(str, _stages[idx].stageTime.lockBeginTime);
+        str = StringTools.concat(str, "|");
+        str = StringTools.appendUintToString(str, _stages[idx].stageTime.lockEndTime);
+        str = StringTools.concat(str, "|");
+        str = StringTools.appendUintToString(str, _stages[idx].stageTime.voteBeginTime);
+        str = StringTools.concat(str, "|");
+        str = StringTools.appendUintToString(str, _stages[idx].stageTime.voteEndTime);
+        str = StringTools.concat(str, "|");
+        str = StringTools.appendUintToString(str, _stages[idx].changeRate);
+        str = StringTools.concat(str, "|");
+        str = StringTools.appendUintToString(str, _stages[idx].targetAgreeRate);
+        str = StringTools.concat(str, "|");
+        str = StringTools.appendUintToString(str, _stages[idx].investors.length);
+
+        return str;
+    }
+
+
+    // 获取指定期的指定投资者的数据
+    function GetStageInvestor(uint256 stageIdx, uint256 investorIdx) public view
+    returns (address, string) {
+        require(stageIdx < _stages.length, "index out of range");
+
+        Stage storage curStage = _stages[stageIdx];
+        require(investorIdx < curStage.investors.length, "index out of range");
+
+        Investor.Investor_ storage curInvestor = curStage.investors[investorIdx];
+
+        string memory str = "";
+        str = StringTools.appendUintToString(str, curInvestor.investABSNum);
+        str = StringTools.concat(str, "|");
+        str = StringTools.appendUintToString(str, curInvestor.itemTokenNum);
+        str = StringTools.concat(str, "|");
+        str = StringTools.appendUintToString(str, Investor.GetStateInt(curInvestor));
+        return (curInvestor.id, str);
+    }
 
     // 增加众筹期
     function AppendStage(
@@ -102,6 +134,7 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
         _stages[nextStageIdx].stageTime.lockEndTime = lockEndTime;
         _stages[nextStageIdx].stageTime.voteBeginTime = voteBeginTime;
         _stages[nextStageIdx].stageTime.voteEndTime = voteEndTime;
+
     }
 
     // 切换到下一个众筹期
@@ -124,7 +157,7 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
 
         // 1. A. 项目方token减少 B. 合同token增加
         uint256 rateTokenNum = calcRateToken(msg.value, curStage.changeRate);
-        require(rateTokenNum <= _balances[_item]);
+        require(rateTokenNum <= _balances[_item], "item balance not enough");
         _balances[_item] = _balances[_item].sub(rateTokenNum);
 
         // 2. A. 投资者ABS减少 B. 合同ABS增加
@@ -143,12 +176,12 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
 
         // 必须参加过众筹
         (bool exist, uint256 idx) = Investor.findInIdx(curStage.investors, msg.sender);
-        require(exist);
+        require(exist, "investor did not participate in the invest");
 
         Investor.Investor_ storage curInvestor = curStage.investors[idx];
 
         // 必须没有投过票
-        require(!Investor.isVoted(curInvestor));
+        require(!Investor.isVoted(curInvestor), "investor have participate in the vote");
 
         if (isAgree == 0) {
             Investor.vote(curInvestor, false);

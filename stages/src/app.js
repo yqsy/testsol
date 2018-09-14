@@ -2,7 +2,6 @@ var web3Provider = null;
 
 var StagesTokenContract;
 
-
 var stagesStatic = 0;
 
 function init() {
@@ -10,7 +9,6 @@ function init() {
 
     initTime();
 }
-
 
 function initWeb3() {
     //if (typeof web3 !== 'undefined' && typeof web3.currentProvider !== 'undefined') {
@@ -38,53 +36,53 @@ function initTime() {
 
 function moveTimeToNext3Days() {
     // 众筹期
-    var t1Begin = moment().add(stagesStatic, 'day');
+    let t1Begin = moment().add(stagesStatic, 'day');
 
-    var t1BeginDate = t1Begin.format('YYYY-MM-DD');
-    var t1BeginTime = t1Begin.format('HH:mm');
+    let t1BeginDate = t1Begin.format('YYYY-MM-DD');
+    let t1BeginTime = t1Begin.format('HH:mm');
 
     document.getElementById('saleBeginTimeDate').value = t1BeginDate;
     document.getElementById('saleBeginTimeTime').value = t1BeginTime;
 
-    var t1End = t1Begin.add(1, 'day');
+    let t1End = t1Begin.add(1, 'day');
 
-    var t1EndDate = t1End.format('YYYY-MM-DD');
-    var t1EndTime = t1End.format('HH:mm');
+    let t1EndDate = t1End.format('YYYY-MM-DD');
+    let t1EndTime = t1End.format('HH:mm');
 
     document.getElementById('saleEndTimeDate').value = t1EndDate;
     document.getElementById('saleEndTimeTime').value = t1EndTime;
 
     // 冻结期
-    var t2Begin = t1End;
+    let t2Begin = t1End;
 
-    var t2BeginDate = t2Begin.format('YYYY-MM-DD');
-    var t2BeginTIme = t2Begin.format('HH:mm');
+    let t2BeginDate = t2Begin.format('YYYY-MM-DD');
+    let t2BeginTIme = t2Begin.format('HH:mm');
 
     document.getElementById('lockBeginTimeDate').value = t2BeginDate;
     document.getElementById('lockBeginTimeTime').value = t2BeginTIme;
 
-    var t2End = t2Begin.add(1, 'day');
+    let t2End = t2Begin.add(1, 'day');
 
-    var t2EndDate = t2End.format('YYYY-MM-DD');
-    var t2EndTime = t2End.format('HH:mm');
+    let t2EndDate = t2End.format('YYYY-MM-DD');
+    let t2EndTime = t2End.format('HH:mm');
 
     document.getElementById('lockEndTimeDate').value = t2EndDate;
     document.getElementById('lockEndTimeTime').value = t2EndTime;
 
     // 投票期
 
-    var t3Beign = t2End;
+    let t3Beign = t2End;
 
-    var t3BeginDate = t3Beign.format('YYYY-MM-DD');
-    var t3BeginTIme = t3Beign.format('HH:mm');
+    let t3BeginDate = t3Beign.format('YYYY-MM-DD');
+    let t3BeginTIme = t3Beign.format('HH:mm');
 
     document.getElementById('voteBeginTimeDate').value = t3BeginDate;
     document.getElementById('voteBeginTimeTime').value = t3BeginTIme;
 
-    var t3End = t3Beign.add(1, 'day');
+    let t3End = t3Beign.add(1, 'day');
 
-    var t3EndDate = t3End.format('YYYY-MM-DD');
-    var t3EndTime = t3End.format('HH:mm');
+    let t3EndDate = t3End.format('YYYY-MM-DD');
+    let t3EndTime = t3End.format('HH:mm');
 
     document.getElementById('voteEndTimeDate').value = t3EndDate;
     document.getElementById('voteEndTimeTime').value = t3EndTime;
@@ -104,6 +102,123 @@ function initWrestlingContract() {
     });
 }
 
+String.prototype.format = function () {
+    var formatted = this;
+    for (var arg in arguments) {
+        formatted = formatted.replace("{" + arg + "}", arguments[arg]);
+    }
+    return formatted;
+};
+
+function queryStages() {
+
+    StagesTokenContract.deployed().then(function (instance) {
+        return instance.CurrentStageIdx();
+    }).then(function (result) {
+
+        // 获取当前期数index
+        let currentStageIdx = result.toNumber();
+
+        StagesTokenContract.deployed().then(function (instance) {
+            return instance.StagesLen();
+        }).then(function (result) {
+
+            // 所有期数
+            stagesLen = document.getElementById("StagesLen").innerHTML = result.toNumber();
+
+            console.log("所有期数: " + stagesLen + "当前期数: " + currentStageIdx);
+
+            let stagesInfoDiv = document.getElementById("stagesInfo");
+            while (stagesInfoDiv.hasChildNodes()) {
+                stagesInfoDiv.removeChild(stagesInfoDiv.firstChild);
+            }
+
+            for (let i = stagesLen - 1; i >= 0; i--) {
+                StagesTokenContract.deployed().then(function (instance) {
+                    return instance.GetStages(i);
+                }).then(function (result) {
+
+                    let newH5 = document.createElement("h5");
+                    if (i === currentStageIdx) {
+                        newH5.setAttribute("style", "color:red;");
+                    }
+
+                    newH5.textContent = "第{0}期:".format(i);
+                    stagesInfoDiv.appendChild(newH5);
+
+                    console.log(result);
+
+                    let curStageInfo = "";
+                    let eles = result.split("|");
+
+                    let t1Begin = moment.unix(parseInt(eles[0])).format('YYYY-MM-DD HH:mm:ss');
+                    let t1End = moment.unix(parseInt(eles[1])).format('YYYY-MM-DD HH:mm:ss');
+                    let t2Begin = moment.unix(parseInt(eles[2])).format('YYYY-MM-DD HH:mm:ss');
+                    let t2End = moment.unix(parseInt(eles[3])).format('YYYY-MM-DD HH:mm:ss');
+                    let t3Begin = moment.unix(parseInt(eles[4])).format('YYYY-MM-DD HH:mm:ss');
+                    let t3End = moment.unix(parseInt(eles[5])).format('YYYY-MM-DD HH:mm:ss');
+                    let changeRate = eles[6];
+                    let targetAgreeRate = eles[7];
+                    let investorNum = eles[8];
+
+                    let newP = document.createElement("p");
+                    newP.textContent = "1.众筹期:{0}~{1}".format(t1Begin, t1End);
+                    stagesInfoDiv.appendChild(newP);
+
+                    newP = document.createElement("p");
+                    newP.textContent = "2.冻结期:{0}~{1}".format(t2Begin, t2End);
+                    stagesInfoDiv.appendChild(newP);
+
+                    newP = document.createElement("p");
+                    newP.textContent = "3.投票期:{0}~{1}".format(t3Begin, t3End);
+                    stagesInfoDiv.appendChild(newP);
+
+                    newP = document.createElement("p");
+                    newP.textContent = "兑换比例:{0} 投票通过比例:{1} 投资者数量:{2}".format(changeRate, targetAgreeRate, investorNum);
+                    stagesInfoDiv.appendChild(newP);
+
+                    for (let k = 0; k < investorNum; k++) {
+                        StagesTokenContract.deployed().then(function (instance) {
+                            return instance.GetStageInvestor(i, k);
+                        }).then(function (result) {
+
+                            let eles = result[1].split("|");
+
+                            let state_ = "";
+                            if (eles[2] === '1') {
+                                state_ = "没有投票"
+                            } else if( eles[2] === '2') {
+                                state_ = "同意"
+                            } else if (eles[2] === '3') {
+                                state_ = "反对"
+                            }
+
+                            newP = document.createElement("p");
+                            newP.textContent = "投资者地址:{0} : ABS数量{1} token数量:{2} 状态:{3}".format(
+                                result[0], eles[0], eles[1], state_
+                            );
+                            stagesInfoDiv.appendChild(newP);
+
+                        }).catch(e => {
+                            alert(e);
+                        });
+                    }
+
+                }).catch(e => {
+                    alert(e);
+                });
+
+            }
+
+        }).catch(e => {
+            alert(e);
+        });
+
+    }).catch(e => {
+        alert(e);
+    });
+}
+
 function flushBasicData() {
     // TODO 怎么重构
 
@@ -112,89 +227,104 @@ function flushBasicData() {
         return instance.name();
     }).then(function (result) {
         document.getElementById("name").innerHTML = result;
+    }).catch(e => {
+        alert(e);
     });
 
     StagesTokenContract.deployed().then(function (instance) {
         return instance.symbol();
     }).then(function (result) {
         document.getElementById("symbol").innerHTML = result;
+    }).catch(e => {
+        alert(e);
     });
 
     StagesTokenContract.deployed().then(function (instance) {
         return instance.decimals();
     }).then(function (result) {
         document.getElementById("decimals").innerHTML = result;
+    }).catch(e => {
+        alert(e);
     });
 
-    // uint256
+    // address
     StagesTokenContract.deployed().then(function (instance) {
         return instance.Item();
     }).then(function (result) {
         document.getElementById("Item").innerHTML = result.toString();
+    }).catch(e => {
+        alert(e);
     });
 
+    // uint256
     StagesTokenContract.deployed().then(function (instance) {
         return instance.ItemBalance();
     }).then(function (result) {
 
-        var num = new Number(result.toString());
+        let num = new Number(result.toString());
         num = num.toLocaleString();
 
         document.getElementById("ItemBalance").innerHTML = num;
+    }).catch(e => {
+        alert(e);
     });
 
     StagesTokenContract.deployed().then(function (instance) {
         return instance.StagesLen();
     }).then(function (result) {
         document.getElementById("StagesLen").innerHTML = result.toString();
+    }).catch(e => {
+        alert(e);
     });
 
     StagesTokenContract.deployed().then(function (instance) {
         return instance.CurrentStageIdx();
     }).then(function (result) {
         document.getElementById("CurrentStageIdx").innerHTML = result.toString();
+    }).catch(e => {
+        alert(e);
     });
 }
 
 function appendStage() {
-    var date = document.getElementById("saleBeginTimeDate").value;
-    var time = document.getElementById("saleBeginTimeTime").value;
-    var saleBeginTime = new Date(date + " " + time).getTime();
+    let date = document.getElementById("saleBeginTimeDate").value;
+    let time = document.getElementById("saleBeginTimeTime").value;
+    let saleBeginTime = new Date(date + " " + time).getTime() / 1000;
 
     date = document.getElementById("saleEndTimeDate").value;
     time = document.getElementById("saleEndTimeTime").value;
-    var saleEndTime = new Date(date + " " + time).getTime();
+    let saleEndTime = new Date(date + " " + time).getTime() / 1000;
 
     date = document.getElementById("lockBeginTimeDate").value;
     time = document.getElementById("lockBeginTimeTime").value;
-    var lockBeginTime = new Date(date + " " + time).getTime();
+    let lockBeginTime = new Date(date + " " + time).getTime() / 1000;
 
     date = document.getElementById("lockEndTimeDate").value;
     time = document.getElementById("lockEndTimeTime").value;
-    var lockEndTime = new Date(date + " " + time).getTime();
+    let lockEndTime = new Date(date + " " + time).getTime() / 1000;
 
     date = document.getElementById("voteBeginTimeDate").value;
     time = document.getElementById("voteBeginTimeTime").value;
-    var voteBeginTime = new Date(date + " " + time).getTime();
+    let voteBeginTime = new Date(date + " " + time).getTime() / 1000;
 
     date = document.getElementById("voteEndTimeDate").value;
     time = document.getElementById("voteEndTimeTime").value;
-    var voteEndTime = new Date(date + " " + time).getTime();
+    let voteEndTime = new Date(date + " " + time).getTime() / 1000;
 
-    var changeRate = document.getElementById("changeRate").value;
+    let changeRate = document.getElementById("changeRate").value;
 
-    var targetAgreeRate = document.getElementById("targetAgreeRate").value;
+    let targetAgreeRate = document.getElementById("targetAgreeRate").value;
 
     StagesTokenContract.deployed().then(function (instance) {
 
-        var saleBeginTimeBig = web3.toBigNumber(saleBeginTime);
-        var saleEndTimeBig = web3.toBigNumber(saleEndTime);
-        var lockBeginTimeBig = web3.toBigNumber(lockBeginTime);
-        var lockEndTimeBig = web3.toBigNumber(lockEndTime);
-        var voteBeginTimeBig = web3.toBigNumber(voteBeginTime);
-        var voteEndTimeBig = web3.toBigNumber(voteEndTime);
-        var changeRateBig = web3.toBigNumber(changeRate);
-        var targetAgreeRateBig = web3.toBigNumber(targetAgreeRate);
+        let saleBeginTimeBig = web3.toBigNumber(saleBeginTime);
+        let saleEndTimeBig = web3.toBigNumber(saleEndTime);
+        let lockBeginTimeBig = web3.toBigNumber(lockBeginTime);
+        let lockEndTimeBig = web3.toBigNumber(lockEndTime);
+        let voteBeginTimeBig = web3.toBigNumber(voteBeginTime);
+        let voteEndTimeBig = web3.toBigNumber(voteEndTime);
+        let changeRateBig = web3.toBigNumber(changeRate);
+        let targetAgreeRateBig = web3.toBigNumber(targetAgreeRate);
 
         instance.AppendStage(
             saleBeginTimeBig,
@@ -204,32 +334,85 @@ function appendStage() {
             voteBeginTimeBig,
             voteEndTimeBig,
             changeRateBig,
-            targetAgreeRateBig, {gas: 3141592});
+            targetAgreeRateBig, {gas: 3141592}).catch(e => {
+            alert(e);
+        });
     });
+
+    flushBasicData();
 }
 
 function Invest() {
-    var ABSNum = document.getElementById("InvestorABSNum").value;
+    let ABSNum = document.getElementById("InvestorABSNum").value;
 
     StagesTokenContract.deployed().then(function (instance) {
 
-        var ABSNumBig = web3.toBigNumber(ABSNum);
+        let ABSNumBig = web3.toBigNumber(ABSNum);
 
         instance.Invest({
-            from: web3.eth.accounts[1],
+            from: web3.eth.defaultAccount,
             gas: 3141592,
             value: web3.toWei(ABSNumBig, "ether")
+        }).catch(e => {
+            alert(e);
         });
     });
 }
 
 
-function switchStage() {
+function Vote() {
+    voteValue = document.getElementById("VoteValue").value;
+
     StagesTokenContract.deployed().then(function (instance) {
-        instance.SwitchStage({gas: 3141592});
+
+        let voteValueBig = web3.toBigNumber(voteValue);
+        instance.Vote(voteValueBig, {
+            gas: 3141592
+        }).catch(e => {
+            alert(e);
+        });
     });
 }
 
+function switchStage() {
+    StagesTokenContract.deployed().then(function (instance) {
+        instance.SwitchStage({gas: 3141592}).catch(e => {
+            alert(e);
+        });
+    });
+}
+
+function InvestorWithdrawToken() {
+    StagesTokenContract.deployed().then(function (instance) {
+        instance.InvestorWithdrawToken({gas: 3141592, from: web3.eth.defaultAccount}).catch(e => {
+            alert(e);
+        });
+    });
+}
+
+function InvestorWithdrawAbs() {
+    StagesTokenContract.deployed().then(function (instance) {
+        instance.InvestorWithdrawAbs({gas: 3141592, from: web3.eth.defaultAccount}).catch(e => {
+            alert(e);
+        });
+    });
+}
+
+function ItemWithdrawABS() {
+    StagesTokenContract.deployed().then(function (instance) {
+        instance.ItemWithdrawABS({gas: 3141592, from: web3.eth.defaultAccount}).catch(e => {
+            alert(e);
+        });
+    });
+}
+
+function ItemWithdrawToken() {
+    StagesTokenContract.deployed().then(function (instance) {
+        instance.ItemWithdrawToken({gas: 3141592, from: web3.eth.defaultAccount}).catch(e => {
+            alert(e);
+        });
+    });
+}
 
 $(function () {
     $(window).load(function () {

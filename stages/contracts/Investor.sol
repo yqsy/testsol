@@ -42,6 +42,20 @@ library Investor {
         return (false, 0);
     }
 
+    // 状态转换成数值
+    function GetStateInt(Investor_ storage investor) internal view
+    returns (uint256) {
+        if (investor.state == State.UnVoted) {
+            return 1;
+        } else if (investor.state == State.Agree) {
+            return 2;
+        } else if (investor.state  == State.Oppose) {
+            return 3;
+        } else {
+            require(false, "impossible");
+        }
+    }
+
     // 是否已投票
     function isVoted(Investor_ storage investor) internal view
     returns (bool) {
@@ -73,6 +87,7 @@ library Investor {
             }
         }
         // 万分数
+        require(investors.length != 0, "no investors voted");
         uint256 agreeRate = agreeVotes.mul(10000).div(investors.length);
         return agreeRate >= targetAgreeRate.mul(100);
     }

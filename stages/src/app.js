@@ -6,6 +6,8 @@ var stagesStatic = 0;
 
 var contractAddress = '0x9d5d8f45d9224234b3e5863169dbfb9a1bdc35b1';
 
+var contractInstance;
+
 function init() {
     initWeb3();
 
@@ -103,6 +105,7 @@ function initWrestlingContract() {
 
         StagesTokenContract.setProvider(web3.currentProvider);
 
+        contractInstance = StagesTokenContract.at(contractAddress);
     });
 }
 
@@ -116,17 +119,11 @@ String.prototype.format = function () {
 
 function queryStages() {
 
-    StagesTokenContract.deployed().then(function (instance) {
-        return instance.CurrentStageIdx();
-    }).then(function (result) {
-
+    contractInstance.CurrentStageIdx().then(function (result) {
         // 获取当前期数index
         let currentStageIdx = result.toNumber();
 
-        StagesTokenContract.deployed().then(function (instance) {
-            return instance.StagesLen();
-        }).then(function (result) {
-
+        contractInstance.StagesLen().then(function (result) {
             // 所有期数
             stagesLen = document.getElementById("StagesLen").innerHTML = result.toNumber();
 
@@ -138,9 +135,7 @@ function queryStages() {
             }
 
             for (let i = stagesLen - 1; i >= 0; i--) {
-                StagesTokenContract.deployed().then(function (instance) {
-                    return instance.GetStages(i);
-                }).then(function (result) {
+                contractInstance.GetStages(i).then(function (result) {
 
                     let newH5 = document.createElement("h5");
                     if (i === currentStageIdx) {
@@ -182,10 +177,7 @@ function queryStages() {
                     stagesInfoDiv.appendChild(newP);
 
                     for (let k = 0; k < investorNum; k++) {
-                        StagesTokenContract.deployed().then(function (instance) {
-                            return instance.GetStageInvestor(i, k);
-                        }).then(function (result) {
-
+                        contractInstance.GetStageInvestor(i, k).then(function (result) {
                             let eles = result[1].split("|");
 
                             let state_ = "";
@@ -227,63 +219,47 @@ function flushBasicData() {
     // TODO 怎么重构
 
     // string
-    StagesTokenContract.deployed().then(function (instance) {
-        return instance.name();
-    }).then(function (result) {
+    contractInstance.name().then(function (result) {
         document.getElementById("name").innerHTML = result;
     }).catch(e => {
         alert(e);
     });
 
-    StagesTokenContract.deployed().then(function (instance) {
-        return instance.symbol();
-    }).then(function (result) {
+    contractInstance.symbol().then(function (result) {
         document.getElementById("symbol").innerHTML = result;
     }).catch(e => {
         alert(e);
     });
 
-    StagesTokenContract.deployed().then(function (instance) {
-        return instance.decimals();
-    }).then(function (result) {
+    contractInstance.decimals().then(function (result) {
         document.getElementById("decimals").innerHTML = result;
     }).catch(e => {
         alert(e);
     });
 
     // address
-    StagesTokenContract.deployed().then(function (instance) {
-        return instance.Item();
-    }).then(function (result) {
+    contractInstance.Item().then(function (result) {
         document.getElementById("Item").innerHTML = result.toString();
     }).catch(e => {
         alert(e);
     });
 
     // uint256
-    StagesTokenContract.deployed().then(function (instance) {
-        return instance.ItemBalance();
-    }).then(function (result) {
-
+    contractInstance.ItemBalance().then(function (result) {
         let num = new Number(result.toString());
         num = num.toLocaleString();
-
         document.getElementById("ItemBalance").innerHTML = num;
     }).catch(e => {
         alert(e);
     });
 
-    StagesTokenContract.deployed().then(function (instance) {
-        return instance.StagesLen();
-    }).then(function (result) {
+    contractInstance.StagesLen().then(function (result) {
         document.getElementById("StagesLen").innerHTML = result.toString();
     }).catch(e => {
         alert(e);
     });
 
-    StagesTokenContract.deployed().then(function (instance) {
-        return instance.CurrentStageIdx();
-    }).then(function (result) {
+    contractInstance.CurrentStageIdx().then(function (result) {
         document.getElementById("CurrentStageIdx").innerHTML = result.toString();
     }).catch(e => {
         alert(e);
@@ -320,31 +296,29 @@ function appendStage() {
 
     let targetAgreeRate = document.getElementById("targetAgreeRate").value;
 
-    StagesTokenContract.deployed().then(function (instance) {
+    let saleBeginTimeBig = web3.toBigNumber(saleBeginTime);
+    let saleEndTimeBig = web3.toBigNumber(saleEndTime);
+    let lockBeginTimeBig = web3.toBigNumber(lockBeginTime);
+    let lockEndTimeBig = web3.toBigNumber(lockEndTime);
+    let voteBeginTimeBig = web3.toBigNumber(voteBeginTime);
+    let voteEndTimeBig = web3.toBigNumber(voteEndTime);
+    let changeRateBig = web3.toBigNumber(changeRate);
+    let targetAgreeRateBig = web3.toBigNumber(targetAgreeRate);
 
-        let saleBeginTimeBig = web3.toBigNumber(saleBeginTime);
-        let saleEndTimeBig = web3.toBigNumber(saleEndTime);
-        let lockBeginTimeBig = web3.toBigNumber(lockBeginTime);
-        let lockEndTimeBig = web3.toBigNumber(lockEndTime);
-        let voteBeginTimeBig = web3.toBigNumber(voteBeginTime);
-        let voteEndTimeBig = web3.toBigNumber(voteEndTime);
-        let changeRateBig = web3.toBigNumber(changeRate);
-        let targetAgreeRateBig = web3.toBigNumber(targetAgreeRate);
-
-        instance.AppendStage(
-            saleBeginTimeBig,
-            saleEndTimeBig,
-            lockBeginTimeBig,
-            lockEndTimeBig,
-            voteBeginTimeBig,
-            voteEndTimeBig,
-            changeRateBig,
-            targetAgreeRateBig, {gas: 3141592, from:  web3.eth.defaultAccount}).then(function (result) {
-            alert("添加成功");
-        }).catch(e => {
-            alert(e);
-        });
+    contractInstance.AppendStage(
+        saleBeginTimeBig,
+        saleEndTimeBig,
+        lockBeginTimeBig,
+        lockEndTimeBig,
+        voteBeginTimeBig,
+        voteEndTimeBig,
+        changeRateBig,
+        targetAgreeRateBig, {gas: 3141592, from: web3.eth.defaultAccount}).then(function (result) {
+        alert("添加成功");
+    }).catch(e => {
+        alert(e);
     });
+
 
     flushBasicData();
 
@@ -359,92 +333,74 @@ function Invest() {
         return;
     }
 
-    StagesTokenContract.deployed().then(function (instance) {
+    let ABSNumBig = web3.toBigNumber(ABSNum);
 
-        let ABSNumBig = web3.toBigNumber(ABSNum);
 
-        instance.Invest({
-            from: web3.eth.defaultAccount,
-            gas: 3141592,
-            value: web3.toWei(ABSNumBig, "ether")
-        }).then(function (result) {
-            alert("投资成功");
-        }).catch(e => {
-            alert(e);
-        });
+    contractInstance.Invest({
+        from: web3.eth.defaultAccount,
+        gas: 3141592,
+        value: web3.toWei(ABSNumBig, "ether")
+    }).then(function (result) {
+        alert("投资成功");
+    }).catch(e => {
+        alert(e);
     });
-
 }
 
 
 function Vote() {
     voteValue = document.getElementById("VoteValue").value;
 
-    StagesTokenContract.deployed().then(function (instance) {
+    let voteValueBig = web3.toBigNumber(voteValue);
 
-        let voteValueBig = web3.toBigNumber(voteValue);
-        instance.Vote(voteValueBig, {
-            from:  web3.eth.defaultAccount,
-            gas: 3141592
-        }).then(function (result) {
-            alert("投票成功");
-        }).catch(e => {
-            alert(e);
-        });
+    contractInstance.Vote(voteValueBig, {
+        from: web3.eth.defaultAccount,
+        gas: 3141592
+    }).then(function (result) {
+        alert("投票成功");
+    }).catch(e => {
+        alert(e);
     });
 }
 
 function switchStage() {
-    StagesTokenContract.deployed().then(function (instance) {
-        instance.SwitchStage({gas: 3141592,  from: web3.eth.defaultAccount}).then(function(result){
-            alert("切换成功");
-        }).catch(e => {
-            alert(e);
-        });
+    contractInstance.SwitchStage({gas: 3141592, from: web3.eth.defaultAccount}).then(function (result) {
+        alert("切换成功");
+    }).catch(e => {
+        alert(e);
     });
 }
 
 function InvestorWithdrawToken() {
-    StagesTokenContract.deployed().then(function (instance) {
-        instance.InvestorWithdrawToken({gas: 3141592, from: web3.eth.defaultAccount}).then(function (reslt) {
-            alert("提取成功");
-        }).catch(e => {
-            alert(e);
-        });
-
+    contractInstance.InvestorWithdrawToken({gas: 3141592, from: web3.eth.defaultAccount}).then(function (reslt) {
+        alert("提取成功");
+    }).catch(e => {
+        alert(e);
     });
+
 }
 
 function InvestorWithdrawAbs() {
-    StagesTokenContract.deployed().then(function (instance) {
-        instance.InvestorWithdrawAbs({gas: 3141592, from: web3.eth.defaultAccount}).then(function (reslt) {
-            alert("提取成功");
-        }).catch(e => {
-            alert(e);
-        });
-
+    contractInstance.InvestorWithdrawAbs({gas: 3141592, from: web3.eth.defaultAccount}).then(function (reslt) {
+        alert("提取成功");
+    }).catch(e => {
+        alert(e);
     });
 }
 
 function ItemWithdrawABS() {
-    StagesTokenContract.deployed().then(function (instance) {
-        instance.ItemWithdrawABS({gas: 3141592, from: web3.eth.defaultAccount}).then(function (reslt) {
-            alert("提取成功");
-        }).catch(e => {
-            alert(e);
-        });
-
+    contractInstance.ItemWithdrawABS({gas: 3141592, from: web3.eth.defaultAccount}).then(function (reslt) {
+        alert("提取成功");
+    }).catch(e => {
+        alert(e);
     });
 }
 
 function ItemWithdrawToken() {
-    StagesTokenContract.deployed().then(function (instance) {
-        instance.ItemWithdrawToken({gas: 3141592, from: web3.eth.defaultAccount}).then(function (reslt) {
-            alert("提取成功");
-        }).catch(e => {
-            alert(e);
-        });
-
+    contractInstance.ItemWithdrawToken({gas: 3141592, from: web3.eth.defaultAccount}).then(function (reslt) {
+        alert("提取成功");
+    }).catch(e => {
+        alert(e);
     });
 }
 

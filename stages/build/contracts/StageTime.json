@@ -11,14 +11,14 @@
     "absolutePath": "/mnt/disk1/linux/reference/project/testsol/stages/contracts/StageTime.sol",
     "exportedSymbols": {
       "StageTime": [
-        536
+        585
       ]
     },
-    "id": 537,
+    "id": 586,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 427,
+        "id": 476,
         "literals": [
           "solidity",
           "^",
@@ -31,10 +31,10 @@
       {
         "absolutePath": "openzeppelin-solidity/contracts/math/SafeMath.sol",
         "file": "openzeppelin-solidity/contracts/math/SafeMath.sol",
-        "id": 428,
+        "id": 477,
         "nodeType": "ImportDirective",
-        "scope": 537,
-        "sourceUnit": 1224,
+        "scope": 586,
+        "sourceUnit": 2140,
         "src": "26:59:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -45,31 +45,31 @@
         "contractKind": "library",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 536,
+        "id": 585,
         "linearizedBaseContracts": [
-          536
+          585
         ],
         "name": "StageTime",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "id": 431,
+            "id": 480,
             "libraryName": {
               "contractScope": null,
-              "id": 429,
+              "id": 478,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1223,
+              "referencedDeclaration": 2139,
               "src": "117:8:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$1223",
+                "typeIdentifier": "t_contract$_SafeMath_$2139",
                 "typeString": "library SafeMath"
               }
             },
             "nodeType": "UsingForDirective",
             "src": "111:24:1",
             "typeName": {
-              "id": 430,
+              "id": 479,
               "name": "uint",
               "nodeType": "ElementaryTypeName",
               "src": "130:4:1",
@@ -81,14 +81,14 @@
           },
           {
             "canonicalName": "StageTime.StageTime_",
-            "id": 444,
+            "id": 493,
             "members": [
               {
                 "constant": false,
-                "id": 433,
+                "id": 482,
                 "name": "saleBeginTime",
                 "nodeType": "VariableDeclaration",
-                "scope": 444,
+                "scope": 493,
                 "src": "222:21:1",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -97,7 +97,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 432,
+                  "id": 481,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "222:7:1",
@@ -111,10 +111,10 @@
               },
               {
                 "constant": false,
-                "id": 435,
+                "id": 484,
                 "name": "saleEndTime",
                 "nodeType": "VariableDeclaration",
-                "scope": 444,
+                "scope": 493,
                 "src": "253:19:1",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -123,7 +123,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 434,
+                  "id": 483,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "253:7:1",
@@ -137,10 +137,10 @@
               },
               {
                 "constant": false,
-                "id": 437,
+                "id": 486,
                 "name": "lockBeginTime",
                 "nodeType": "VariableDeclaration",
-                "scope": 444,
+                "scope": 493,
                 "src": "307:21:1",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -149,7 +149,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 436,
+                  "id": 485,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "307:7:1",
@@ -163,10 +163,10 @@
               },
               {
                 "constant": false,
-                "id": 439,
+                "id": 488,
                 "name": "lockEndTime",
                 "nodeType": "VariableDeclaration",
-                "scope": 444,
+                "scope": 493,
                 "src": "338:19:1",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -175,7 +175,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 438,
+                  "id": 487,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "338:7:1",
@@ -189,10 +189,10 @@
               },
               {
                 "constant": false,
-                "id": 441,
+                "id": 490,
                 "name": "voteBeginTime",
                 "nodeType": "VariableDeclaration",
-                "scope": 444,
+                "scope": 493,
                 "src": "392:21:1",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -201,7 +201,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 440,
+                  "id": 489,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "392:7:1",
@@ -215,10 +215,10 @@
               },
               {
                 "constant": false,
-                "id": 443,
+                "id": 492,
                 "name": "voteEndTime",
                 "nodeType": "VariableDeclaration",
-                "scope": 444,
+                "scope": 493,
                 "src": "423:19:1",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -227,7 +227,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 442,
+                  "id": 491,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "423:7:1",
@@ -242,13 +242,13 @@
             ],
             "name": "StageTime_",
             "nodeType": "StructDefinition",
-            "scope": 536,
+            "scope": 585,
             "src": "170:279:1",
             "visibility": "public"
           },
           {
             "body": {
-              "id": 463,
+              "id": 512,
               "nodeType": "Block",
               "src": "579:94:1",
               "statements": [
@@ -259,7 +259,7 @@
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     },
-                    "id": 461,
+                    "id": 510,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -270,18 +270,18 @@
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       },
-                      "id": 456,
+                      "id": 505,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "leftExpression": {
                         "argumentTypes": null,
-                        "id": 453,
+                        "id": 502,
                         "name": "curTime",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 448,
+                        "referencedDeclaration": 497,
                         "src": "596:7:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -294,25 +294,25 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 454,
+                          "id": 503,
                           "name": "stageTime",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 446,
+                          "referencedDeclaration": 495,
                           "src": "607:9:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                            "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                             "typeString": "struct StageTime.StageTime_ storage pointer"
                           }
                         },
-                        "id": 455,
+                        "id": 504,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "saleBeginTime",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 433,
+                        "referencedDeclaration": 482,
                         "src": "607:23:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -333,18 +333,18 @@
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       },
-                      "id": 460,
+                      "id": 509,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "leftExpression": {
                         "argumentTypes": null,
-                        "id": 457,
+                        "id": 506,
                         "name": "curTime",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 448,
+                        "referencedDeclaration": 497,
                         "src": "634:7:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -357,25 +357,25 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 458,
+                          "id": 507,
                           "name": "stageTime",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 446,
+                          "referencedDeclaration": 495,
                           "src": "645:9:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                            "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                             "typeString": "struct StageTime.StageTime_ storage pointer"
                           }
                         },
-                        "id": 459,
+                        "id": 508,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "saleEndTime",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 435,
+                        "referencedDeclaration": 484,
                         "src": "645:21:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -394,15 +394,15 @@
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 452,
-                  "id": 462,
+                  "functionReturnParameters": 501,
+                  "id": 511,
                   "nodeType": "Return",
                   "src": "589:77:1"
                 }
               ]
             },
             "documentation": null,
-            "id": 464,
+            "id": 513,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -410,31 +410,31 @@
             "name": "isInSale",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 449,
+              "id": 498,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 446,
+                  "id": 495,
                   "name": "stageTime",
                   "nodeType": "VariableDeclaration",
-                  "scope": 464,
+                  "scope": 513,
                   "src": "499:28:1",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                    "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                     "typeString": "struct StageTime.StageTime_"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 445,
+                    "id": 494,
                     "name": "StageTime_",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 444,
+                    "referencedDeclaration": 493,
                     "src": "499:10:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                      "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                       "typeString": "struct StageTime.StageTime_"
                     }
                   },
@@ -443,10 +443,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 448,
+                  "id": 497,
                   "name": "curTime",
                   "nodeType": "VariableDeclaration",
-                  "scope": 464,
+                  "scope": 513,
                   "src": "529:15:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -455,7 +455,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 447,
+                    "id": 496,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "529:7:1",
@@ -472,15 +472,15 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 452,
+              "id": 501,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 451,
+                  "id": 500,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 464,
+                  "scope": 513,
                   "src": "573:4:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -489,7 +489,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 450,
+                    "id": 499,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "573:4:1",
@@ -504,7 +504,7 @@
               ],
               "src": "572:6:1"
             },
-            "scope": 536,
+            "scope": 585,
             "src": "481:192:1",
             "stateMutability": "view",
             "superFunction": null,
@@ -512,7 +512,7 @@
           },
           {
             "body": {
-              "id": 483,
+              "id": 532,
               "nodeType": "Block",
               "src": "803:94:1",
               "statements": [
@@ -523,7 +523,7 @@
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     },
-                    "id": 481,
+                    "id": 530,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -534,18 +534,18 @@
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       },
-                      "id": 476,
+                      "id": 525,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "leftExpression": {
                         "argumentTypes": null,
-                        "id": 473,
+                        "id": 522,
                         "name": "curTime",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 468,
+                        "referencedDeclaration": 517,
                         "src": "820:7:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -558,25 +558,25 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 474,
+                          "id": 523,
                           "name": "stageTime",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 466,
+                          "referencedDeclaration": 515,
                           "src": "831:9:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                            "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                             "typeString": "struct StageTime.StageTime_ storage pointer"
                           }
                         },
-                        "id": 475,
+                        "id": 524,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "lockBeginTime",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 437,
+                        "referencedDeclaration": 486,
                         "src": "831:23:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -597,18 +597,18 @@
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       },
-                      "id": 480,
+                      "id": 529,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "leftExpression": {
                         "argumentTypes": null,
-                        "id": 477,
+                        "id": 526,
                         "name": "curTime",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 468,
+                        "referencedDeclaration": 517,
                         "src": "858:7:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -621,25 +621,25 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 478,
+                          "id": 527,
                           "name": "stageTime",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 466,
+                          "referencedDeclaration": 515,
                           "src": "869:9:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                            "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                             "typeString": "struct StageTime.StageTime_ storage pointer"
                           }
                         },
-                        "id": 479,
+                        "id": 528,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "lockEndTime",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 439,
+                        "referencedDeclaration": 488,
                         "src": "869:21:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -658,15 +658,15 @@
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 472,
-                  "id": 482,
+                  "functionReturnParameters": 521,
+                  "id": 531,
                   "nodeType": "Return",
                   "src": "813:77:1"
                 }
               ]
             },
             "documentation": null,
-            "id": 484,
+            "id": 533,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -674,31 +674,31 @@
             "name": "isInLock",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 469,
+              "id": 518,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 466,
+                  "id": 515,
                   "name": "stageTime",
                   "nodeType": "VariableDeclaration",
-                  "scope": 484,
+                  "scope": 533,
                   "src": "723:28:1",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                    "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                     "typeString": "struct StageTime.StageTime_"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 465,
+                    "id": 514,
                     "name": "StageTime_",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 444,
+                    "referencedDeclaration": 493,
                     "src": "723:10:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                      "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                       "typeString": "struct StageTime.StageTime_"
                     }
                   },
@@ -707,10 +707,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 468,
+                  "id": 517,
                   "name": "curTime",
                   "nodeType": "VariableDeclaration",
-                  "scope": 484,
+                  "scope": 533,
                   "src": "753:15:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -719,7 +719,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 467,
+                    "id": 516,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "753:7:1",
@@ -736,15 +736,15 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 472,
+              "id": 521,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 471,
+                  "id": 520,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 484,
+                  "scope": 533,
                   "src": "797:4:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -753,7 +753,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 470,
+                    "id": 519,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "797:4:1",
@@ -768,7 +768,7 @@
               ],
               "src": "796:6:1"
             },
-            "scope": 536,
+            "scope": 585,
             "src": "705:192:1",
             "stateMutability": "view",
             "superFunction": null,
@@ -776,7 +776,7 @@
           },
           {
             "body": {
-              "id": 503,
+              "id": 552,
               "nodeType": "Block",
               "src": "1027:94:1",
               "statements": [
@@ -787,7 +787,7 @@
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     },
-                    "id": 501,
+                    "id": 550,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -798,18 +798,18 @@
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       },
-                      "id": 496,
+                      "id": 545,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "leftExpression": {
                         "argumentTypes": null,
-                        "id": 493,
+                        "id": 542,
                         "name": "curTime",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 488,
+                        "referencedDeclaration": 537,
                         "src": "1044:7:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -822,25 +822,25 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 494,
+                          "id": 543,
                           "name": "stageTime",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 486,
+                          "referencedDeclaration": 535,
                           "src": "1055:9:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                            "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                             "typeString": "struct StageTime.StageTime_ storage pointer"
                           }
                         },
-                        "id": 495,
+                        "id": 544,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "voteBeginTime",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 441,
+                        "referencedDeclaration": 490,
                         "src": "1055:23:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -861,18 +861,18 @@
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       },
-                      "id": 500,
+                      "id": 549,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "leftExpression": {
                         "argumentTypes": null,
-                        "id": 497,
+                        "id": 546,
                         "name": "curTime",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 488,
+                        "referencedDeclaration": 537,
                         "src": "1082:7:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -885,25 +885,25 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 498,
+                          "id": 547,
                           "name": "stageTime",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 486,
+                          "referencedDeclaration": 535,
                           "src": "1093:9:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                            "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                             "typeString": "struct StageTime.StageTime_ storage pointer"
                           }
                         },
-                        "id": 499,
+                        "id": 548,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "voteEndTime",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 443,
+                        "referencedDeclaration": 492,
                         "src": "1093:21:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -922,15 +922,15 @@
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 492,
-                  "id": 502,
+                  "functionReturnParameters": 541,
+                  "id": 551,
                   "nodeType": "Return",
                   "src": "1037:77:1"
                 }
               ]
             },
             "documentation": null,
-            "id": 504,
+            "id": 553,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -938,31 +938,31 @@
             "name": "isInVote",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 489,
+              "id": 538,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 486,
+                  "id": 535,
                   "name": "stageTime",
                   "nodeType": "VariableDeclaration",
-                  "scope": 504,
+                  "scope": 553,
                   "src": "947:28:1",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                    "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                     "typeString": "struct StageTime.StageTime_"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 485,
+                    "id": 534,
                     "name": "StageTime_",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 444,
+                    "referencedDeclaration": 493,
                     "src": "947:10:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                      "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                       "typeString": "struct StageTime.StageTime_"
                     }
                   },
@@ -971,10 +971,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 488,
+                  "id": 537,
                   "name": "curTime",
                   "nodeType": "VariableDeclaration",
-                  "scope": 504,
+                  "scope": 553,
                   "src": "977:15:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -983,7 +983,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 487,
+                    "id": 536,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "977:7:1",
@@ -1000,15 +1000,15 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 492,
+              "id": 541,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 491,
+                  "id": 540,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 504,
+                  "scope": 553,
                   "src": "1021:4:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1017,7 +1017,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 490,
+                    "id": 539,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "1021:4:1",
@@ -1032,7 +1032,7 @@
               ],
               "src": "1020:6:1"
             },
-            "scope": 536,
+            "scope": 585,
             "src": "929:192:1",
             "stateMutability": "view",
             "superFunction": null,
@@ -1040,7 +1040,7 @@
           },
           {
             "body": {
-              "id": 534,
+              "id": 583,
               "nodeType": "Block",
               "src": "1248:193:1",
               "statements": [
@@ -1051,7 +1051,7 @@
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     },
-                    "id": 526,
+                    "id": 575,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1062,7 +1062,7 @@
                         "typeIdentifier": "t_bool",
                         "typeString": "bool"
                       },
-                      "id": 521,
+                      "id": 570,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -1072,24 +1072,24 @@
                         "arguments": [
                           {
                             "argumentTypes": null,
-                            "id": 514,
+                            "id": 563,
                             "name": "stageTime",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 506,
+                            "referencedDeclaration": 555,
                             "src": "1271:9:1",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                              "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                               "typeString": "struct StageTime.StageTime_ storage pointer"
                             }
                           },
                           {
                             "argumentTypes": null,
-                            "id": 515,
+                            "id": 564,
                             "name": "curTime",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 508,
+                            "referencedDeclaration": 557,
                             "src": "1282:7:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -1100,7 +1100,7 @@
                         "expression": {
                           "argumentTypes": [
                             {
-                              "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                              "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                               "typeString": "struct StageTime.StageTime_ storage pointer"
                             },
                             {
@@ -1108,18 +1108,18 @@
                               "typeString": "uint256"
                             }
                           ],
-                          "id": 513,
+                          "id": 562,
                           "name": "isInSale",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 464,
+                          "referencedDeclaration": 513,
                           "src": "1262:8:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_function_internal_view$_t_struct$_StageTime__$444_storage_ptr_$_t_uint256_$returns$_t_bool_$",
+                            "typeIdentifier": "t_function_internal_view$_t_struct$_StageTime__$493_storage_ptr_$_t_uint256_$returns$_t_bool_$",
                             "typeString": "function (struct StageTime.StageTime_ storage pointer,uint256) view returns (bool)"
                           }
                         },
-                        "id": 516,
+                        "id": 565,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -1140,24 +1140,24 @@
                         "arguments": [
                           {
                             "argumentTypes": null,
-                            "id": 518,
+                            "id": 567,
                             "name": "stageTime",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 506,
+                            "referencedDeclaration": 555,
                             "src": "1303:9:1",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                              "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                               "typeString": "struct StageTime.StageTime_ storage pointer"
                             }
                           },
                           {
                             "argumentTypes": null,
-                            "id": 519,
+                            "id": 568,
                             "name": "curTime",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 508,
+                            "referencedDeclaration": 557,
                             "src": "1314:7:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -1168,7 +1168,7 @@
                         "expression": {
                           "argumentTypes": [
                             {
-                              "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                              "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                               "typeString": "struct StageTime.StageTime_ storage pointer"
                             },
                             {
@@ -1176,18 +1176,18 @@
                               "typeString": "uint256"
                             }
                           ],
-                          "id": 517,
+                          "id": 566,
                           "name": "isInLock",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 484,
+                          "referencedDeclaration": 533,
                           "src": "1294:8:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_function_internal_view$_t_struct$_StageTime__$444_storage_ptr_$_t_uint256_$returns$_t_bool_$",
+                            "typeIdentifier": "t_function_internal_view$_t_struct$_StageTime__$493_storage_ptr_$_t_uint256_$returns$_t_bool_$",
                             "typeString": "function (struct StageTime.StageTime_ storage pointer,uint256) view returns (bool)"
                           }
                         },
-                        "id": 520,
+                        "id": 569,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -1214,24 +1214,24 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "id": 523,
+                          "id": 572,
                           "name": "stageTime",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 506,
+                          "referencedDeclaration": 555,
                           "src": "1335:9:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                            "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                             "typeString": "struct StageTime.StageTime_ storage pointer"
                           }
                         },
                         {
                           "argumentTypes": null,
-                          "id": 524,
+                          "id": 573,
                           "name": "curTime",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 508,
+                          "referencedDeclaration": 557,
                           "src": "1346:7:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
@@ -1242,7 +1242,7 @@
                       "expression": {
                         "argumentTypes": [
                           {
-                            "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                            "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                             "typeString": "struct StageTime.StageTime_ storage pointer"
                           },
                           {
@@ -1250,18 +1250,18 @@
                             "typeString": "uint256"
                           }
                         ],
-                        "id": 522,
+                        "id": 571,
                         "name": "isInVote",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 504,
+                        "referencedDeclaration": 553,
                         "src": "1326:8:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_function_internal_view$_t_struct$_StageTime__$444_storage_ptr_$_t_uint256_$returns$_t_bool_$",
+                          "typeIdentifier": "t_function_internal_view$_t_struct$_StageTime__$493_storage_ptr_$_t_uint256_$returns$_t_bool_$",
                           "typeString": "function (struct StageTime.StageTime_ storage pointer,uint256) view returns (bool)"
                         }
                       },
-                      "id": 525,
+                      "id": 574,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -1282,7 +1282,7 @@
                     }
                   },
                   "falseBody": {
-                    "id": 532,
+                    "id": 581,
                     "nodeType": "Block",
                     "src": "1399:36:1",
                     "statements": [
@@ -1290,7 +1290,7 @@
                         "expression": {
                           "argumentTypes": null,
                           "hexValue": "74727565",
-                          "id": 530,
+                          "id": 579,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -1305,18 +1305,18 @@
                           },
                           "value": "true"
                         },
-                        "functionReturnParameters": 512,
-                        "id": 531,
+                        "functionReturnParameters": 561,
+                        "id": 580,
                         "nodeType": "Return",
                         "src": "1413:11:1"
                       }
                     ]
                   },
-                  "id": 533,
+                  "id": 582,
                   "nodeType": "IfStatement",
                   "src": "1258:177:1",
                   "trueBody": {
-                    "id": 529,
+                    "id": 578,
                     "nodeType": "Block",
                     "src": "1356:37:1",
                     "statements": [
@@ -1324,7 +1324,7 @@
                         "expression": {
                           "argumentTypes": null,
                           "hexValue": "66616c7365",
-                          "id": 527,
+                          "id": 576,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -1339,8 +1339,8 @@
                           },
                           "value": "false"
                         },
-                        "functionReturnParameters": 512,
-                        "id": 528,
+                        "functionReturnParameters": 561,
+                        "id": 577,
                         "nodeType": "Return",
                         "src": "1370:12:1"
                       }
@@ -1350,7 +1350,7 @@
               ]
             },
             "documentation": null,
-            "id": 535,
+            "id": 584,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -1358,31 +1358,31 @@
             "name": "isEnd",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 509,
+              "id": 558,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 506,
+                  "id": 555,
                   "name": "stageTime",
                   "nodeType": "VariableDeclaration",
-                  "scope": 535,
+                  "scope": 584,
                   "src": "1168:28:1",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                    "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                     "typeString": "struct StageTime.StageTime_"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 505,
+                    "id": 554,
                     "name": "StageTime_",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 444,
+                    "referencedDeclaration": 493,
                     "src": "1168:10:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                      "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                       "typeString": "struct StageTime.StageTime_"
                     }
                   },
@@ -1391,10 +1391,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 508,
+                  "id": 557,
                   "name": "curTime",
                   "nodeType": "VariableDeclaration",
-                  "scope": 535,
+                  "scope": 584,
                   "src": "1198:15:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1403,7 +1403,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 507,
+                    "id": 556,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1198:7:1",
@@ -1420,15 +1420,15 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 512,
+              "id": 561,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 511,
+                  "id": 560,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 535,
+                  "scope": 584,
                   "src": "1242:4:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1437,7 +1437,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 510,
+                    "id": 559,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "1242:4:1",
@@ -1452,14 +1452,14 @@
               ],
               "src": "1241:6:1"
             },
-            "scope": 536,
+            "scope": 585,
             "src": "1153:288:1",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "internal"
           }
         ],
-        "scope": 537,
+        "scope": 586,
         "src": "87:1356:1"
       }
     ],
@@ -1469,14 +1469,14 @@
     "absolutePath": "/mnt/disk1/linux/reference/project/testsol/stages/contracts/StageTime.sol",
     "exportedSymbols": {
       "StageTime": [
-        536
+        585
       ]
     },
-    "id": 537,
+    "id": 586,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 427,
+        "id": 476,
         "literals": [
           "solidity",
           "^",
@@ -1489,10 +1489,10 @@
       {
         "absolutePath": "openzeppelin-solidity/contracts/math/SafeMath.sol",
         "file": "openzeppelin-solidity/contracts/math/SafeMath.sol",
-        "id": 428,
+        "id": 477,
         "nodeType": "ImportDirective",
-        "scope": 537,
-        "sourceUnit": 1224,
+        "scope": 586,
+        "sourceUnit": 2140,
         "src": "26:59:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1503,31 +1503,31 @@
         "contractKind": "library",
         "documentation": null,
         "fullyImplemented": true,
-        "id": 536,
+        "id": 585,
         "linearizedBaseContracts": [
-          536
+          585
         ],
         "name": "StageTime",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
-            "id": 431,
+            "id": 480,
             "libraryName": {
               "contractScope": null,
-              "id": 429,
+              "id": 478,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 1223,
+              "referencedDeclaration": 2139,
               "src": "117:8:1",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$1223",
+                "typeIdentifier": "t_contract$_SafeMath_$2139",
                 "typeString": "library SafeMath"
               }
             },
             "nodeType": "UsingForDirective",
             "src": "111:24:1",
             "typeName": {
-              "id": 430,
+              "id": 479,
               "name": "uint",
               "nodeType": "ElementaryTypeName",
               "src": "130:4:1",
@@ -1539,14 +1539,14 @@
           },
           {
             "canonicalName": "StageTime.StageTime_",
-            "id": 444,
+            "id": 493,
             "members": [
               {
                 "constant": false,
-                "id": 433,
+                "id": 482,
                 "name": "saleBeginTime",
                 "nodeType": "VariableDeclaration",
-                "scope": 444,
+                "scope": 493,
                 "src": "222:21:1",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1555,7 +1555,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 432,
+                  "id": 481,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "222:7:1",
@@ -1569,10 +1569,10 @@
               },
               {
                 "constant": false,
-                "id": 435,
+                "id": 484,
                 "name": "saleEndTime",
                 "nodeType": "VariableDeclaration",
-                "scope": 444,
+                "scope": 493,
                 "src": "253:19:1",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1581,7 +1581,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 434,
+                  "id": 483,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "253:7:1",
@@ -1595,10 +1595,10 @@
               },
               {
                 "constant": false,
-                "id": 437,
+                "id": 486,
                 "name": "lockBeginTime",
                 "nodeType": "VariableDeclaration",
-                "scope": 444,
+                "scope": 493,
                 "src": "307:21:1",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1607,7 +1607,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 436,
+                  "id": 485,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "307:7:1",
@@ -1621,10 +1621,10 @@
               },
               {
                 "constant": false,
-                "id": 439,
+                "id": 488,
                 "name": "lockEndTime",
                 "nodeType": "VariableDeclaration",
-                "scope": 444,
+                "scope": 493,
                 "src": "338:19:1",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1633,7 +1633,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 438,
+                  "id": 487,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "338:7:1",
@@ -1647,10 +1647,10 @@
               },
               {
                 "constant": false,
-                "id": 441,
+                "id": 490,
                 "name": "voteBeginTime",
                 "nodeType": "VariableDeclaration",
-                "scope": 444,
+                "scope": 493,
                 "src": "392:21:1",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1659,7 +1659,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 440,
+                  "id": 489,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "392:7:1",
@@ -1673,10 +1673,10 @@
               },
               {
                 "constant": false,
-                "id": 443,
+                "id": 492,
                 "name": "voteEndTime",
                 "nodeType": "VariableDeclaration",
-                "scope": 444,
+                "scope": 493,
                 "src": "423:19:1",
                 "stateVariable": false,
                 "storageLocation": "default",
@@ -1685,7 +1685,7 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 442,
+                  "id": 491,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "423:7:1",
@@ -1700,13 +1700,13 @@
             ],
             "name": "StageTime_",
             "nodeType": "StructDefinition",
-            "scope": 536,
+            "scope": 585,
             "src": "170:279:1",
             "visibility": "public"
           },
           {
             "body": {
-              "id": 463,
+              "id": 512,
               "nodeType": "Block",
               "src": "579:94:1",
               "statements": [
@@ -1717,7 +1717,7 @@
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     },
-                    "id": 461,
+                    "id": 510,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1728,18 +1728,18 @@
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       },
-                      "id": 456,
+                      "id": 505,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "leftExpression": {
                         "argumentTypes": null,
-                        "id": 453,
+                        "id": 502,
                         "name": "curTime",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 448,
+                        "referencedDeclaration": 497,
                         "src": "596:7:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -1752,25 +1752,25 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 454,
+                          "id": 503,
                           "name": "stageTime",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 446,
+                          "referencedDeclaration": 495,
                           "src": "607:9:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                            "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                             "typeString": "struct StageTime.StageTime_ storage pointer"
                           }
                         },
-                        "id": 455,
+                        "id": 504,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "saleBeginTime",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 433,
+                        "referencedDeclaration": 482,
                         "src": "607:23:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -1791,18 +1791,18 @@
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       },
-                      "id": 460,
+                      "id": 509,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "leftExpression": {
                         "argumentTypes": null,
-                        "id": 457,
+                        "id": 506,
                         "name": "curTime",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 448,
+                        "referencedDeclaration": 497,
                         "src": "634:7:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -1815,25 +1815,25 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 458,
+                          "id": 507,
                           "name": "stageTime",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 446,
+                          "referencedDeclaration": 495,
                           "src": "645:9:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                            "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                             "typeString": "struct StageTime.StageTime_ storage pointer"
                           }
                         },
-                        "id": 459,
+                        "id": 508,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "saleEndTime",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 435,
+                        "referencedDeclaration": 484,
                         "src": "645:21:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -1852,15 +1852,15 @@
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 452,
-                  "id": 462,
+                  "functionReturnParameters": 501,
+                  "id": 511,
                   "nodeType": "Return",
                   "src": "589:77:1"
                 }
               ]
             },
             "documentation": null,
-            "id": 464,
+            "id": 513,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -1868,31 +1868,31 @@
             "name": "isInSale",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 449,
+              "id": 498,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 446,
+                  "id": 495,
                   "name": "stageTime",
                   "nodeType": "VariableDeclaration",
-                  "scope": 464,
+                  "scope": 513,
                   "src": "499:28:1",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                    "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                     "typeString": "struct StageTime.StageTime_"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 445,
+                    "id": 494,
                     "name": "StageTime_",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 444,
+                    "referencedDeclaration": 493,
                     "src": "499:10:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                      "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                       "typeString": "struct StageTime.StageTime_"
                     }
                   },
@@ -1901,10 +1901,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 448,
+                  "id": 497,
                   "name": "curTime",
                   "nodeType": "VariableDeclaration",
-                  "scope": 464,
+                  "scope": 513,
                   "src": "529:15:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1913,7 +1913,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 447,
+                    "id": 496,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "529:7:1",
@@ -1930,15 +1930,15 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 452,
+              "id": 501,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 451,
+                  "id": 500,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 464,
+                  "scope": 513,
                   "src": "573:4:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -1947,7 +1947,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 450,
+                    "id": 499,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "573:4:1",
@@ -1962,7 +1962,7 @@
               ],
               "src": "572:6:1"
             },
-            "scope": 536,
+            "scope": 585,
             "src": "481:192:1",
             "stateMutability": "view",
             "superFunction": null,
@@ -1970,7 +1970,7 @@
           },
           {
             "body": {
-              "id": 483,
+              "id": 532,
               "nodeType": "Block",
               "src": "803:94:1",
               "statements": [
@@ -1981,7 +1981,7 @@
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     },
-                    "id": 481,
+                    "id": 530,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1992,18 +1992,18 @@
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       },
-                      "id": 476,
+                      "id": 525,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "leftExpression": {
                         "argumentTypes": null,
-                        "id": 473,
+                        "id": 522,
                         "name": "curTime",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 468,
+                        "referencedDeclaration": 517,
                         "src": "820:7:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -2016,25 +2016,25 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 474,
+                          "id": 523,
                           "name": "stageTime",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 466,
+                          "referencedDeclaration": 515,
                           "src": "831:9:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                            "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                             "typeString": "struct StageTime.StageTime_ storage pointer"
                           }
                         },
-                        "id": 475,
+                        "id": 524,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "lockBeginTime",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 437,
+                        "referencedDeclaration": 486,
                         "src": "831:23:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -2055,18 +2055,18 @@
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       },
-                      "id": 480,
+                      "id": 529,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "leftExpression": {
                         "argumentTypes": null,
-                        "id": 477,
+                        "id": 526,
                         "name": "curTime",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 468,
+                        "referencedDeclaration": 517,
                         "src": "858:7:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -2079,25 +2079,25 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 478,
+                          "id": 527,
                           "name": "stageTime",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 466,
+                          "referencedDeclaration": 515,
                           "src": "869:9:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                            "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                             "typeString": "struct StageTime.StageTime_ storage pointer"
                           }
                         },
-                        "id": 479,
+                        "id": 528,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "lockEndTime",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 439,
+                        "referencedDeclaration": 488,
                         "src": "869:21:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -2116,15 +2116,15 @@
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 472,
-                  "id": 482,
+                  "functionReturnParameters": 521,
+                  "id": 531,
                   "nodeType": "Return",
                   "src": "813:77:1"
                 }
               ]
             },
             "documentation": null,
-            "id": 484,
+            "id": 533,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -2132,31 +2132,31 @@
             "name": "isInLock",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 469,
+              "id": 518,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 466,
+                  "id": 515,
                   "name": "stageTime",
                   "nodeType": "VariableDeclaration",
-                  "scope": 484,
+                  "scope": 533,
                   "src": "723:28:1",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                    "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                     "typeString": "struct StageTime.StageTime_"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 465,
+                    "id": 514,
                     "name": "StageTime_",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 444,
+                    "referencedDeclaration": 493,
                     "src": "723:10:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                      "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                       "typeString": "struct StageTime.StageTime_"
                     }
                   },
@@ -2165,10 +2165,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 468,
+                  "id": 517,
                   "name": "curTime",
                   "nodeType": "VariableDeclaration",
-                  "scope": 484,
+                  "scope": 533,
                   "src": "753:15:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2177,7 +2177,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 467,
+                    "id": 516,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "753:7:1",
@@ -2194,15 +2194,15 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 472,
+              "id": 521,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 471,
+                  "id": 520,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 484,
+                  "scope": 533,
                   "src": "797:4:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2211,7 +2211,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 470,
+                    "id": 519,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "797:4:1",
@@ -2226,7 +2226,7 @@
               ],
               "src": "796:6:1"
             },
-            "scope": 536,
+            "scope": 585,
             "src": "705:192:1",
             "stateMutability": "view",
             "superFunction": null,
@@ -2234,7 +2234,7 @@
           },
           {
             "body": {
-              "id": 503,
+              "id": 552,
               "nodeType": "Block",
               "src": "1027:94:1",
               "statements": [
@@ -2245,7 +2245,7 @@
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     },
-                    "id": 501,
+                    "id": 550,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2256,18 +2256,18 @@
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       },
-                      "id": 496,
+                      "id": 545,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "leftExpression": {
                         "argumentTypes": null,
-                        "id": 493,
+                        "id": 542,
                         "name": "curTime",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 488,
+                        "referencedDeclaration": 537,
                         "src": "1044:7:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -2280,25 +2280,25 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 494,
+                          "id": 543,
                           "name": "stageTime",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 486,
+                          "referencedDeclaration": 535,
                           "src": "1055:9:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                            "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                             "typeString": "struct StageTime.StageTime_ storage pointer"
                           }
                         },
-                        "id": 495,
+                        "id": 544,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "voteBeginTime",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 441,
+                        "referencedDeclaration": 490,
                         "src": "1055:23:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -2319,18 +2319,18 @@
                         "typeIdentifier": "t_uint256",
                         "typeString": "uint256"
                       },
-                      "id": 500,
+                      "id": 549,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
                       "lValueRequested": false,
                       "leftExpression": {
                         "argumentTypes": null,
-                        "id": 497,
+                        "id": 546,
                         "name": "curTime",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 488,
+                        "referencedDeclaration": 537,
                         "src": "1082:7:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -2343,25 +2343,25 @@
                         "argumentTypes": null,
                         "expression": {
                           "argumentTypes": null,
-                          "id": 498,
+                          "id": 547,
                           "name": "stageTime",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 486,
+                          "referencedDeclaration": 535,
                           "src": "1093:9:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                            "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                             "typeString": "struct StageTime.StageTime_ storage pointer"
                           }
                         },
-                        "id": 499,
+                        "id": 548,
                         "isConstant": false,
                         "isLValue": true,
                         "isPure": false,
                         "lValueRequested": false,
                         "memberName": "voteEndTime",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 443,
+                        "referencedDeclaration": 492,
                         "src": "1093:21:1",
                         "typeDescriptions": {
                           "typeIdentifier": "t_uint256",
@@ -2380,15 +2380,15 @@
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 492,
-                  "id": 502,
+                  "functionReturnParameters": 541,
+                  "id": 551,
                   "nodeType": "Return",
                   "src": "1037:77:1"
                 }
               ]
             },
             "documentation": null,
-            "id": 504,
+            "id": 553,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -2396,31 +2396,31 @@
             "name": "isInVote",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 489,
+              "id": 538,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 486,
+                  "id": 535,
                   "name": "stageTime",
                   "nodeType": "VariableDeclaration",
-                  "scope": 504,
+                  "scope": 553,
                   "src": "947:28:1",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                    "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                     "typeString": "struct StageTime.StageTime_"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 485,
+                    "id": 534,
                     "name": "StageTime_",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 444,
+                    "referencedDeclaration": 493,
                     "src": "947:10:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                      "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                       "typeString": "struct StageTime.StageTime_"
                     }
                   },
@@ -2429,10 +2429,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 488,
+                  "id": 537,
                   "name": "curTime",
                   "nodeType": "VariableDeclaration",
-                  "scope": 504,
+                  "scope": 553,
                   "src": "977:15:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2441,7 +2441,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 487,
+                    "id": 536,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "977:7:1",
@@ -2458,15 +2458,15 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 492,
+              "id": 541,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 491,
+                  "id": 540,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 504,
+                  "scope": 553,
                   "src": "1021:4:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2475,7 +2475,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 490,
+                    "id": 539,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "1021:4:1",
@@ -2490,7 +2490,7 @@
               ],
               "src": "1020:6:1"
             },
-            "scope": 536,
+            "scope": 585,
             "src": "929:192:1",
             "stateMutability": "view",
             "superFunction": null,
@@ -2498,7 +2498,7 @@
           },
           {
             "body": {
-              "id": 534,
+              "id": 583,
               "nodeType": "Block",
               "src": "1248:193:1",
               "statements": [
@@ -2509,7 +2509,7 @@
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     },
-                    "id": 526,
+                    "id": 575,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -2520,7 +2520,7 @@
                         "typeIdentifier": "t_bool",
                         "typeString": "bool"
                       },
-                      "id": 521,
+                      "id": 570,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -2530,24 +2530,24 @@
                         "arguments": [
                           {
                             "argumentTypes": null,
-                            "id": 514,
+                            "id": 563,
                             "name": "stageTime",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 506,
+                            "referencedDeclaration": 555,
                             "src": "1271:9:1",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                              "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                               "typeString": "struct StageTime.StageTime_ storage pointer"
                             }
                           },
                           {
                             "argumentTypes": null,
-                            "id": 515,
+                            "id": 564,
                             "name": "curTime",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 508,
+                            "referencedDeclaration": 557,
                             "src": "1282:7:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -2558,7 +2558,7 @@
                         "expression": {
                           "argumentTypes": [
                             {
-                              "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                              "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                               "typeString": "struct StageTime.StageTime_ storage pointer"
                             },
                             {
@@ -2566,18 +2566,18 @@
                               "typeString": "uint256"
                             }
                           ],
-                          "id": 513,
+                          "id": 562,
                           "name": "isInSale",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 464,
+                          "referencedDeclaration": 513,
                           "src": "1262:8:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_function_internal_view$_t_struct$_StageTime__$444_storage_ptr_$_t_uint256_$returns$_t_bool_$",
+                            "typeIdentifier": "t_function_internal_view$_t_struct$_StageTime__$493_storage_ptr_$_t_uint256_$returns$_t_bool_$",
                             "typeString": "function (struct StageTime.StageTime_ storage pointer,uint256) view returns (bool)"
                           }
                         },
-                        "id": 516,
+                        "id": 565,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -2598,24 +2598,24 @@
                         "arguments": [
                           {
                             "argumentTypes": null,
-                            "id": 518,
+                            "id": 567,
                             "name": "stageTime",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 506,
+                            "referencedDeclaration": 555,
                             "src": "1303:9:1",
                             "typeDescriptions": {
-                              "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                              "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                               "typeString": "struct StageTime.StageTime_ storage pointer"
                             }
                           },
                           {
                             "argumentTypes": null,
-                            "id": 519,
+                            "id": 568,
                             "name": "curTime",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 508,
+                            "referencedDeclaration": 557,
                             "src": "1314:7:1",
                             "typeDescriptions": {
                               "typeIdentifier": "t_uint256",
@@ -2626,7 +2626,7 @@
                         "expression": {
                           "argumentTypes": [
                             {
-                              "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                              "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                               "typeString": "struct StageTime.StageTime_ storage pointer"
                             },
                             {
@@ -2634,18 +2634,18 @@
                               "typeString": "uint256"
                             }
                           ],
-                          "id": 517,
+                          "id": 566,
                           "name": "isInLock",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 484,
+                          "referencedDeclaration": 533,
                           "src": "1294:8:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_function_internal_view$_t_struct$_StageTime__$444_storage_ptr_$_t_uint256_$returns$_t_bool_$",
+                            "typeIdentifier": "t_function_internal_view$_t_struct$_StageTime__$493_storage_ptr_$_t_uint256_$returns$_t_bool_$",
                             "typeString": "function (struct StageTime.StageTime_ storage pointer,uint256) view returns (bool)"
                           }
                         },
-                        "id": 520,
+                        "id": 569,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -2672,24 +2672,24 @@
                       "arguments": [
                         {
                           "argumentTypes": null,
-                          "id": 523,
+                          "id": 572,
                           "name": "stageTime",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 506,
+                          "referencedDeclaration": 555,
                           "src": "1335:9:1",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                            "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                             "typeString": "struct StageTime.StageTime_ storage pointer"
                           }
                         },
                         {
                           "argumentTypes": null,
-                          "id": 524,
+                          "id": 573,
                           "name": "curTime",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 508,
+                          "referencedDeclaration": 557,
                           "src": "1346:7:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_uint256",
@@ -2700,7 +2700,7 @@
                       "expression": {
                         "argumentTypes": [
                           {
-                            "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                            "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                             "typeString": "struct StageTime.StageTime_ storage pointer"
                           },
                           {
@@ -2708,18 +2708,18 @@
                             "typeString": "uint256"
                           }
                         ],
-                        "id": 522,
+                        "id": 571,
                         "name": "isInVote",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 504,
+                        "referencedDeclaration": 553,
                         "src": "1326:8:1",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_function_internal_view$_t_struct$_StageTime__$444_storage_ptr_$_t_uint256_$returns$_t_bool_$",
+                          "typeIdentifier": "t_function_internal_view$_t_struct$_StageTime__$493_storage_ptr_$_t_uint256_$returns$_t_bool_$",
                           "typeString": "function (struct StageTime.StageTime_ storage pointer,uint256) view returns (bool)"
                         }
                       },
-                      "id": 525,
+                      "id": 574,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": false,
@@ -2740,7 +2740,7 @@
                     }
                   },
                   "falseBody": {
-                    "id": 532,
+                    "id": 581,
                     "nodeType": "Block",
                     "src": "1399:36:1",
                     "statements": [
@@ -2748,7 +2748,7 @@
                         "expression": {
                           "argumentTypes": null,
                           "hexValue": "74727565",
-                          "id": 530,
+                          "id": 579,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -2763,18 +2763,18 @@
                           },
                           "value": "true"
                         },
-                        "functionReturnParameters": 512,
-                        "id": 531,
+                        "functionReturnParameters": 561,
+                        "id": 580,
                         "nodeType": "Return",
                         "src": "1413:11:1"
                       }
                     ]
                   },
-                  "id": 533,
+                  "id": 582,
                   "nodeType": "IfStatement",
                   "src": "1258:177:1",
                   "trueBody": {
-                    "id": 529,
+                    "id": 578,
                     "nodeType": "Block",
                     "src": "1356:37:1",
                     "statements": [
@@ -2782,7 +2782,7 @@
                         "expression": {
                           "argumentTypes": null,
                           "hexValue": "66616c7365",
-                          "id": 527,
+                          "id": 576,
                           "isConstant": false,
                           "isLValue": false,
                           "isPure": true,
@@ -2797,8 +2797,8 @@
                           },
                           "value": "false"
                         },
-                        "functionReturnParameters": 512,
-                        "id": 528,
+                        "functionReturnParameters": 561,
+                        "id": 577,
                         "nodeType": "Return",
                         "src": "1370:12:1"
                       }
@@ -2808,7 +2808,7 @@
               ]
             },
             "documentation": null,
-            "id": 535,
+            "id": 584,
             "implemented": true,
             "isConstructor": false,
             "isDeclaredConst": true,
@@ -2816,31 +2816,31 @@
             "name": "isEnd",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 509,
+              "id": 558,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 506,
+                  "id": 555,
                   "name": "stageTime",
                   "nodeType": "VariableDeclaration",
-                  "scope": 535,
+                  "scope": 584,
                   "src": "1168:28:1",
                   "stateVariable": false,
                   "storageLocation": "storage",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                    "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                     "typeString": "struct StageTime.StageTime_"
                   },
                   "typeName": {
                     "contractScope": null,
-                    "id": 505,
+                    "id": 554,
                     "name": "StageTime_",
                     "nodeType": "UserDefinedTypeName",
-                    "referencedDeclaration": 444,
+                    "referencedDeclaration": 493,
                     "src": "1168:10:1",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_StageTime__$444_storage_ptr",
+                      "typeIdentifier": "t_struct$_StageTime__$493_storage_ptr",
                       "typeString": "struct StageTime.StageTime_"
                     }
                   },
@@ -2849,10 +2849,10 @@
                 },
                 {
                   "constant": false,
-                  "id": 508,
+                  "id": 557,
                   "name": "curTime",
                   "nodeType": "VariableDeclaration",
-                  "scope": 535,
+                  "scope": 584,
                   "src": "1198:15:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2861,7 +2861,7 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 507,
+                    "id": 556,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
                     "src": "1198:7:1",
@@ -2878,15 +2878,15 @@
             },
             "payable": false,
             "returnParameters": {
-              "id": 512,
+              "id": 561,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 511,
+                  "id": 560,
                   "name": "",
                   "nodeType": "VariableDeclaration",
-                  "scope": 535,
+                  "scope": 584,
                   "src": "1242:4:1",
                   "stateVariable": false,
                   "storageLocation": "default",
@@ -2895,7 +2895,7 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 510,
+                    "id": 559,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
                     "src": "1242:4:1",
@@ -2910,14 +2910,14 @@
               ],
               "src": "1241:6:1"
             },
-            "scope": 536,
+            "scope": 585,
             "src": "1153:288:1",
             "stateMutability": "view",
             "superFunction": null,
             "visibility": "internal"
           }
         ],
-        "scope": 537,
+        "scope": 586,
         "src": "87:1356:1"
       }
     ],
@@ -2929,5 +2929,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-09-10T07:11:20.031Z"
+  "updatedAt": "2018-09-14T07:31:47.427Z"
 }

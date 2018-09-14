@@ -12,6 +12,10 @@
  *   },
  */
 
+var HDWalletProvider = require("truffle-hdwallet-provider");
+
+var mnemonic = "chalk often urge amused farm person venue half travel gate twenty people";
+
 module.exports = {
     networks: {
         development: {
@@ -20,6 +24,12 @@ module.exports = {
             network_id: "*",
             gas: 4500000,
             gasPrice: 10000000000,
-        }
-    }
+        },
+        ropsten: {
+            provider: function() {
+                return new HDWalletProvider(mnemonic, "https://ropsten.infura.io/v3/50a4afb18ee44d649ad9548c1828ca79")
+            },
+            network_id: 3
+        },
+    },
 };

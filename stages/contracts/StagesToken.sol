@@ -193,6 +193,9 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
     // 投资者: (投票成功) 获取token
     function InvestorWithdrawToken() public onlyInvestor {
         for (uint256 i = 0; i < _stages.length; i++) {
+            if (!StageTime.isEnd(_stages[i].stageTime, now)) {
+                continue;
+            }
             if (Investor.isVoteAgreeAchieveTarget(_stages[i].investors, _stages[i].targetAgreeRate)) {
                 Investor.investorWithdrawToken(_stages[i].investors, msg.sender, addSendersToken);
             }
@@ -202,6 +205,9 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
     // 投资者: (投票失败) 获取ABS
     function InvestorWithdrawAbs() public onlyInvestor {
         for (uint256 i = 0; i < _stages.length; i++) {
+            if (!StageTime.isEnd(_stages[i].stageTime, now)) {
+                continue;
+            }
             if (!Investor.isVoteAgreeAchieveTarget(_stages[i].investors, _stages[i].targetAgreeRate)) {
                 Investor.investorWithdrawABS(_stages[i].investors, msg.sender, addSendersABS);
             }
@@ -211,6 +217,9 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
     // 项目方: (投票成功) 获取ABS
     function ItemWithdrawABS() public onlyItem {
         for (uint256 i = 0; i < _stages.length; i++) {
+            if (!StageTime.isEnd(_stages[i].stageTime, now)) {
+                continue;
+            }
             if (Investor.isVoteAgreeAchieveTarget(_stages[i].investors, _stages[i].targetAgreeRate)) {
                 Investor.itemWithdrawABS(_stages[i].investors, addSendersABS);
             }
@@ -220,6 +229,9 @@ contract StagesToken is ERC20, ERC20Detailed, ERC20Burnable {
     // 项目方: (投票失败) 获取token
     function ItemWithdrawToken() public onlyItem {
         for (uint256 i = 0; i < _stages.length; i++) {
+            if (!StageTime.isEnd(_stages[i].stageTime, now)) {
+                continue;
+            }
             if (!Investor.isVoteAgreeAchieveTarget(_stages[i].investors, _stages[i].targetAgreeRate)) {
                 Investor.itemWithdrawToken(_stages[i].investors, addSendersToken);
             }

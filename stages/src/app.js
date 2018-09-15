@@ -4,7 +4,7 @@ var StagesTokenContract;
 
 var stagesStatic = 0;
 
-var contractAddress = '0x9d5d8f45d9224234b3e5863169dbfb9a1bdc35b1';
+var contractAddress = '0x854876a2c92d41cd4bc9e1b4724f7afc03f90205';
 
 var contractInstance;
 

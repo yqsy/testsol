@@ -1,14 +1,14 @@
 {
   "contractName": "Investor",
   "abi": [],
-  "bytecode": "0x604c602c600b82828239805160001a60731460008114601c57601e565bfe5b5030600052607381538281f30073000000000000000000000000000000000000000030146080604052600080fd00a165627a7a72305820fcca391d6d72cb644728f6437020b326213112daa15ecc0cb101f0ca87bdbd990029",
-  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fd00a165627a7a72305820fcca391d6d72cb644728f6437020b326213112daa15ecc0cb101f0ca87bdbd990029",
+  "bytecode": "0x604c602c600b82828239805160001a60731460008114601c57601e565bfe5b5030600052607381538281f30073000000000000000000000000000000000000000030146080604052600080fd00a165627a7a72305820db15fc1a62429afdffc2ac2ced8c03ca29519c64d15e13b68a02192e74ab0d2a0029",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fd00a165627a7a72305820db15fc1a62429afdffc2ac2ced8c03ca29519c64d15e13b68a02192e74ab0d2a0029",
   "sourceMap": "87:4310:0:-;;132:2:-1;166:7;155:9;146:7;137:37;252:7;246:14;243:1;238:23;232:4;229:33;270:1;265:20;;;;222:63;;265:20;274:9;222:63;;298:9;295:1;288:20;328:4;319:7;311:22;352:7;343;336:24",
   "deployedSourceMap": "87:4310:0:-;;;;;;;;",
   "source": "pragma solidity ^0.4.24;\n\nimport \"openzeppelin-solidity/contracts/math/SafeMath.sol\";\n\nlibrary Investor {\n    using SafeMath for uint;\n\n    enum State {UnVoted, Agree, Oppose}\n\n    struct Investor_ {\n        address id;             // 投资者地址\n        uint256 investABSNum;   // 投资者投资ABS数量\n        uint256 itemTokenNum;   // 项目方释放Token数量\n        State state;            // 状态\n    }\n\n    // 创建新投资者\n    function newInvestor(address _id, uint256 _investABSNum, uint256 _itemTokenNum) internal pure\n    returns (Investor_) {\n        Investor.Investor_ memory investor;\n        investor.id = _id;\n        investor.investABSNum = _investABSNum;\n        investor.itemTokenNum = _itemTokenNum;\n        investor.state = State.UnVoted;\n        return investor;\n    }\n\n    // 追加投资\n    function appendInvest(Investor_ storage investor, uint256 investABSNum, uint256 itemTokenNum) internal {\n        investor.investABSNum = investor.investABSNum.add(investABSNum);\n        investor.itemTokenNum = investor.itemTokenNum.add(itemTokenNum);\n    }\n\n    // 寻找投资者是否存在\n    function findInIdx(Investor_[] storage investors, address id) internal view\n    returns (bool, uint256) {\n        for (uint256 i = 0; i < investors.length; i++) {\n            if (investors[i].id == id) {\n                return (true, i);\n            }\n        }\n        return (false, 0);\n    }\n\n    // 状态转换成数值\n    function GetStateInt(Investor_ storage investor) internal view\n    returns (uint256) {\n        if (investor.state == State.UnVoted) {\n            return 1;\n        } else if (investor.state == State.Agree) {\n            return 2;\n        } else if (investor.state  == State.Oppose) {\n            return 3;\n        } else {\n            require(false, \"impossible\");\n        }\n    }\n\n    // 是否已投票\n    function isVoted(Investor_ storage investor) internal view\n    returns (bool) {\n        return investor.state != State.UnVoted;\n    }\n\n    // 是否同意\n    function isAgreed(Investor_ storage investor) internal view\n    returns (bool) {\n        return investor.state == State.Agree;\n    }\n\n    // 投票\n    function vote(Investor_ storage investor, bool agree) internal {\n        if (agree) {\n            investor.state = State.Agree;\n        } else {\n            investor.state = State.Oppose;\n        }\n    }\n\n    // 是否达到同意比例\n    function isVoteAgreeAchieveTarget(Investor_[] storage investors, uint256 targetAgreeRate) internal view\n    returns (bool) {\n        uint256 agreeVotes = 0;\n        for (uint256 i = 0; i < investors.length; i++) {\n            if (isAgreed(investors[i])) {\n                agreeVotes++;\n            }\n        }\n        // 万分数\n        require(investors.length != 0, \"no investors voted\");\n        uint256 agreeRate = agreeVotes.mul(10000).div(investors.length);\n        return agreeRate >= targetAgreeRate.mul(100);\n    }\n\n    // 投资者: (投票成功) 获取token\n    function investorWithdrawToken(Investor_[] storage investors, address id, function (uint256) addSendersToken) internal {\n        for (uint256 i = 0; i < investors.length; i++) {\n            if (investors[i].id == id) {\n                addSendersToken(investors[i].itemTokenNum);\n                investors[i].itemTokenNum = 0;\n            }\n        }\n    }\n\n    // 投资者: (投票失败) 获取ABS\n    function investorWithdrawABS(Investor_[] storage investors, address id, function (uint256) addSendersABS) internal {\n        for (uint256 i = 0; i < investors.length; i++) {\n            if (investors[i].id == id) {\n                addSendersABS(investors[i].investABSNum);\n                investors[i].investABSNum = 0;\n            }\n        }\n    }\n\n    // 项目方: (投票成功) 获取ABS\n    function itemWithdrawABS(Investor_[] storage investors, function (uint256) addSendersABS) internal {\n        for (uint256 i = 0; i < investors.length; i++) {\n            addSendersABS(investors[i].investABSNum);\n            investors[i].investABSNum = 0;\n        }\n    }\n\n    // 项目方: (投票失败) 获取token\n    function itemWithdrawToken(Investor_[] storage investors, function (uint256) addSendersToken) internal {\n        for (uint256 i = 0; i < investors.length; i++) {\n            addSendersToken(investors[i].itemTokenNum);\n            investors[i].itemTokenNum = 0;\n        }\n    }\n}\n",
-  "sourcePath": "/mnt/disk1/linux/reference/project/testsol/stages/contracts/Investor.sol",
+  "sourcePath": "/mnt/disk1/linux/reference/test/testsol/stages/contracts/Investor.sol",
   "ast": {
-    "absolutePath": "/mnt/disk1/linux/reference/project/testsol/stages/contracts/Investor.sol",
+    "absolutePath": "/mnt/disk1/linux/reference/test/testsol/stages/contracts/Investor.sol",
     "exportedSymbols": {
       "Investor": [
         474
@@ -34,7 +34,7 @@
         "id": 2,
         "nodeType": "ImportDirective",
         "scope": 475,
-        "sourceUnit": 2140,
+        "sourceUnit": 2245,
         "src": "26:59:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -59,10 +59,10 @@
               "id": 3,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 2139,
+              "referencedDeclaration": 2244,
               "src": "116:8:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$2139",
+                "typeIdentifier": "t_contract$_SafeMath_$2244",
                 "typeString": "library SafeMath"
               }
             },
@@ -791,7 +791,7 @@
                         "lValueRequested": false,
                         "memberName": "add",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 2118,
+                        "referencedDeclaration": 2223,
                         "src": "970:25:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -921,7 +921,7 @@
                         "lValueRequested": false,
                         "memberName": "add",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 2118,
+                        "referencedDeclaration": 2223,
                         "src": "1043:25:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -1891,10 +1891,10 @@
                                 "name": "require",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [
-                                  2799,
-                                  2800
+                                  2904,
+                                  2905
                                 ],
-                                "referencedDeclaration": 2800,
+                                "referencedDeclaration": 2905,
                                 "src": "1794:7:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -3185,10 +3185,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        2799,
-                        2800
+                        2904,
+                        2905
                       ],
-                      "referencedDeclaration": 2800,
+                      "referencedDeclaration": 2905,
                       "src": "2759:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -3335,7 +3335,7 @@
                           "lValueRequested": false,
                           "memberName": "mul",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 2046,
+                          "referencedDeclaration": 2151,
                           "src": "2841:14:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -3363,7 +3363,7 @@
                       "lValueRequested": false,
                       "memberName": "div",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 2070,
+                      "referencedDeclaration": 2175,
                       "src": "2841:25:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -3463,7 +3463,7 @@
                         "lValueRequested": false,
                         "memberName": "mul",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 2046,
+                        "referencedDeclaration": 2151,
                         "src": "2914:19:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -5854,7 +5854,7 @@
     "src": "0:4398:0"
   },
   "legacyAST": {
-    "absolutePath": "/mnt/disk1/linux/reference/project/testsol/stages/contracts/Investor.sol",
+    "absolutePath": "/mnt/disk1/linux/reference/test/testsol/stages/contracts/Investor.sol",
     "exportedSymbols": {
       "Investor": [
         474
@@ -5880,7 +5880,7 @@
         "id": 2,
         "nodeType": "ImportDirective",
         "scope": 475,
-        "sourceUnit": 2140,
+        "sourceUnit": 2245,
         "src": "26:59:0",
         "symbolAliases": [],
         "unitAlias": ""
@@ -5905,10 +5905,10 @@
               "id": 3,
               "name": "SafeMath",
               "nodeType": "UserDefinedTypeName",
-              "referencedDeclaration": 2139,
+              "referencedDeclaration": 2244,
               "src": "116:8:0",
               "typeDescriptions": {
-                "typeIdentifier": "t_contract$_SafeMath_$2139",
+                "typeIdentifier": "t_contract$_SafeMath_$2244",
                 "typeString": "library SafeMath"
               }
             },
@@ -6637,7 +6637,7 @@
                         "lValueRequested": false,
                         "memberName": "add",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 2118,
+                        "referencedDeclaration": 2223,
                         "src": "970:25:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -6767,7 +6767,7 @@
                         "lValueRequested": false,
                         "memberName": "add",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 2118,
+                        "referencedDeclaration": 2223,
                         "src": "1043:25:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -7737,10 +7737,10 @@
                                 "name": "require",
                                 "nodeType": "Identifier",
                                 "overloadedDeclarations": [
-                                  2799,
-                                  2800
+                                  2904,
+                                  2905
                                 ],
-                                "referencedDeclaration": 2800,
+                                "referencedDeclaration": 2905,
                                 "src": "1794:7:0",
                                 "typeDescriptions": {
                                   "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -9031,10 +9031,10 @@
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
-                        2799,
-                        2800
+                        2904,
+                        2905
                       ],
-                      "referencedDeclaration": 2800,
+                      "referencedDeclaration": 2905,
                       "src": "2759:7:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
@@ -9181,7 +9181,7 @@
                           "lValueRequested": false,
                           "memberName": "mul",
                           "nodeType": "MemberAccess",
-                          "referencedDeclaration": 2046,
+                          "referencedDeclaration": 2151,
                           "src": "2841:14:0",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -9209,7 +9209,7 @@
                       "lValueRequested": false,
                       "memberName": "div",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 2070,
+                      "referencedDeclaration": 2175,
                       "src": "2841:25:0",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -9309,7 +9309,7 @@
                         "lValueRequested": false,
                         "memberName": "mul",
                         "nodeType": "MemberAccess",
-                        "referencedDeclaration": 2046,
+                        "referencedDeclaration": 2151,
                         "src": "2914:19:0",
                         "typeDescriptions": {
                           "typeIdentifier": "t_function_internal_pure$_t_uint256_$_t_uint256_$returns$_t_uint256_$bound_to$_t_uint256_$",
@@ -11705,5 +11705,5 @@
   },
   "networks": {},
   "schemaVersion": "2.0.1",
-  "updatedAt": "2018-09-14T07:31:47.444Z"
+  "updatedAt": "2018-09-15T00:52:48.357Z"
 }

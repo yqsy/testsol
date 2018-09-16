@@ -14,7 +14,9 @@
 
 var HDWalletProvider = require("truffle-hdwallet-provider");
 
-var mnemonic = "chalk often urge amused farm person venue half travel gate twenty people";
+var ropstenMnemonic = "chalk often urge amused farm person venue half travel gate twenty people";
+
+var rskMnemonic = "inner pistol mansion spell video position fat comfort same odor shock join";
 
 module.exports = {
     networks: {
@@ -27,9 +29,15 @@ module.exports = {
         },
         ropsten: {
             provider: function() {
-                return new HDWalletProvider(mnemonic, "https://ropsten.infura.io/v3/50a4afb18ee44d649ad9548c1828ca79")
+                return new HDWalletProvider(ropstenMnemonic, "https://ropsten.infura.io/v3/50a4afb18ee44d649ad9548c1828ca79")
             },
             network_id: 3
         },
+        rsk : {
+            provider: () =>
+                new HDWalletProvider(rskMnemonic, 'https://public-node.testnet.rsk.co:443'
+                ),
+            network_id: '*'
+        }
     },
 };
